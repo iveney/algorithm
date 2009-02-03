@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+#define MAX 102
+
+struct path{
+	int a,b,c,d;
+};
+
+long long d[MAX][MAX];
+int width=6;
+int height=6 ;
+char * bad[]={"0 0 0 1","6 6 5 6"};
+
+int main()
+{
+	int n=sizeof(bad)/4; // elements count in bad
+	int i,j;
+	for(i=0;i<n;i++){
+		int a,b,c,d;
+		sscanf(bad[i],"%d %d %d %d",&a,&b,&c,&d);
+		if( c<a || d<b ){// sort the block
+			int temp;
+			temp=a;a=c;c=temp; 
+			temp=d;d=b;b=temp;
+		}
+		printf("%d %d %d %d\n",a,b,c,d);
+	}
+	unsigned long long a;
+	printf("%lld\n",a);
+	return 0;
+}
