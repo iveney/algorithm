@@ -1,0 +1,172 @@
+·¢ÐÅÈË: acmer ()ÎªÊ²Ã´À¨ºÅ²»Æ¥ÅäµÄ°), ÐÅÇø: ACMICPC
+±ê  Ìâ: SICILY²¿·ÖÌâÄ¿µÄ´óÖÂ·ÖÀà
+·¢ÐÅÕ¾: ÒÝÏÉÊ±¿Õ Yat-sen Channel (Sun Feb 17 23:22:04 2008)
+
+SICILY²¿·ÖÌâÄ¿µÄ´óÖÂ·ÖÀà£¬»¶Ó­²¹³ä¾À´í
+
+¡¾Êý¾Ý½á¹¹/Í¼ÂÛ¡¿
+
+1310 Right-Heavy Tree   µÑ¿¨¶ûÊ÷Ïà¹Ø£¬¸´ÔÓ¶ÈO(N)»òO(NlogN)¡£
+1426 Phone List         µç»°ºÅÂëÇ°×º¼ìË÷£¬trieÊ÷Ïà¹Ø¡£
+1443 Printer Queue      »ù±¾¶ÓÁÐ²Ù×÷¡£
+1149 µÈ¼Û±í´ïÊ½         ÅÐ¶Ï±í´ïÊ½ÊÇ·ñµÈ¼Û£¨µÝ¹éÇó½â£©
+1136 É½º£¾­             n³¤ÐòÁÐÀïÇóm´ÎÇø¼äÑ¯ÎÊµÄ×î´óÁ¬Ðø×ÓÇø¼äºÍ¡£Ïß¶ÎÊ÷/RMQ
+
+1252 Defining Moment    ×Ö·û´®»®·ÖÇ°ºó×º
+1194 Message Flood      µ¥´Ê²éÕÒ¡£ÅÅÐòºó¶þ·Ö²éÕÒ
+1201 01000001           ´óÕûÊý¶þ½øÖÆ¼Ó·¨
+1381 a * b              ¸ß¾«¶È³Ë·¨
+1424 ½±½ð               ÍØÆËÅÅÐò
+1350 Piggy banks        ¸ø³öÃ¿¸öµã³ö¶ÈÎª1µÄÓÐÏòÍ¼£¬Çó»·µÄ¸öÊý¡££¨¼òµ¥£©
+1423 Ä§ÍõbugµÄ2É«¶¨Àí   ¹¹Í¼ÇóÍøÂçµÄ×îÐ¡¸î¡£
+1173 Reliable Nets      ÎÞÏòÍ¼Çó×îÐ¡µÄ¶þÁ¬Í¨×ÓÍ¼¡££¨Êý¾ÝÐ¡¿ÉÒÔËÑË÷£©
+1192 Guardian of Decency Çó×î´ó¶ÀÁ¢¼¯£¬±È½ÏÌØÊâ¿ÉÒÔ×ª¶þ·ÖÆ¥Åä×ö¡£
+1031 Campus             µ¥Ô´×î¶ÌÂ·£¬dijkstra¡£
+1090 Highways           ×îÐ¡Éú³ÉÊ÷¡£
+1034 Forest             É­ÁÖµÄ¶¨Òå£¬Çó×î´ó¿í¶ÈÓëÉî¶È¡££¨Éî¶ÈÓÅÏÈ±éÀú£©
+1114 Food Cubes         ¹ã¶ÈÓÅÏÈ±éÀú¸ø3Î¬¿Õ¼äÍ¼È¾É«¡££¨dfsÈÝÒ×Õ»Òç³ö£©
+1132 ROUTES             ÓÃÀ¨ºÅÐòÁÐ±íÊ¾Ê÷£¬ÇóÁ½½Úµã×î½ü¹«¹²×æÏÈ¡£
+1155 Can I Post the letter ÅÐ¶ÏÁ½µãÊÇ·ñ¿É´ï¡££¨Í¼µÄ±éÀú£©
+1141 ºï×ÓµÄÕù¶·         ÍêÈ«Í¼×îÐ¡Éú³ÉÊ÷µÄ·½·¨Êý£¬½ÚµãÈ«ÅÅÁÐ: n!*(n^(n-2))
+1170 Countdown          ½¨Ê÷£¬Í³¼Æ
+1196 Conflict           ¹ØÏµ±Õ°üµÄ×ª»»
+1210 ¶þ²æÊ÷             ÖªµÀÇ°ÐòºóÐòÇó¿ÉÄÜµÄ·½·¨Êý
+1402 Panic Room         ¹¹Í¼ÇóÍøÂç×î´óÁ÷
+1303 Job Assignment     ¶þ·ÖÍ¼µÄ×î´óÈ¨Æ¥Åä
+1308 Dependencies among Jobs Í¼µÄ±éÀú¡£
+
+¡¾¼¸ºÎ¡¿
+
+1175 Swamp Things       Æ½ÃæÉÏN¸öµã£¬ÇóÒ»Ìõ¾­¹ý×î¶àµãµÄÖ±Ïß¡£
+1234 Playground         °ëÔ²È¦ÄÜ·ñ¹¹³É·â±ÕÈ¦¡£Æ½ÃæÍ¼£¬×ªÎªÅÐ¶Ï¶à±ßÐÎÄÜ·ñ¹¹³É
+
+1179 Extrusion          ¶à±ßÐÎÇóÃæ»ý
+1045 Space Management   ÇóÆ½ÃæÉÏ¾ØÐÎµþ¼ÓµÄ×ÜÃæ»ý£¬¾ØÐÎÇÐ¸î»òÕßÀëÉ¢»¯.
+1092 Stars in Your Window Ïß¶ÎÊ÷.
+1145 Ð£ÃÅÍâµÄÊ÷         ÀëÉ¢»¯»òO(n)µÄÉ¨Ãè
+1223 ·ÀÓùÁ¦³¡           ÇóÒ»Ìõ¹ýÄ¿±êµãµÄÖ±Ïß£¬Ê¹µÃÖ±ÏßÒ»±ßµÄµã×îÉÙ
+1216 Ò°ÍâÐÐ¾ü           ¹â³Ì×î¶ÌÂ·
+1118 War on Weather     ÇòÍâÒ»µãÓëÇòÇÐÏßÖ±½ÓÅÐ¶Ï·¶Î§¡£
+
+¡¾ËÑË÷¡¿
+
+1444 Prime Path         ¹ã¶ÈÓÅÏÈËÑË÷
+1317 Sudoku             Êý¶ÀÇó½âµÄ¸öÊý¡£
+1171 The Game of Efil   2^16 dfsÃ¶¾ÙÆåÅÌºó¼ì²â
+1219 ÐÂºìºÚÊ÷           ¿³Ê÷²©ÞÄ£¬min-maxËÑË÷»ò¼ÇÒä»¯ËÑË÷
+1215 ÍÑÀëµØÀÎ           ÓÐÏÞÖÆµÄÃÔ¹¬ÇóÁ½ÈËÏàÓöµÄ×îÐ¡²½Öè¡££¨¹ã¶ÈÓÅÏÈËÑË÷£©
+1180 Pasting Strings    ¸ø10¸ö×Ö·û´®£¬ÇóÒ»¸öÅÅÁÐÊ¹µÃÄ³ÖÖÈ¨ºÍ×î´ó£¬È«ÅÅÁÐËÑË÷¡£
+1024 Magic Island       ÎÞÏòÍ¼µÄ×î³¤Â·¡££¨Éî¶ÈÓÅÏÈËÑË÷£©
+1048 Inverso            ¹ã¶ÈÓÅÏÈËÑË÷£¬¶þ½øÖÆ±íÊ¾×´Ì¬ÅÐÖØ¡£
+1050 Numbers & Letters  Éî¶ÈÓÅÏÈËÑË÷
+1135 ·ÉÔ½Ô­Ò°           ×î¶ÌÊ±¼ä¹ýµØÍ¼£¬¹ã¶ÈÓÅÏÈËÑË÷.
+1107 Simple Puzzle      °´ÌâÒâËÑË÷£¬ÓÐ¿ÉÄÜÓÐÇ°ÖÃÁã£¬Êä³öÅÅÐò.
+1150 ¼òµ¥Ä§°å           ¹ã¶ÈÓÅÏÈËÑË÷£¬È«ÅÅÁÐµÄhashº¯ÊýÉè¼Æ
+1151 Ä§°å Í¬ÉÏ¡£
+1152 ¼òµ¥µÄÂíÖÜÓÎÎÊÌâ   ÃÔ¹¬ÎÊÌâµÄ¿ÉÐÐÐÔ¼ôÖ¦.
+1153 ÂíÖÜÓÎÎÊÌâ         Í¬ÉÏ£¬À©Õ¹×´Ì¬½ÚµãµÄÊ±ºò°´Ä¿±êº¯ÊýÖµÅÅÐò¡£
+1378 °ËÊýÂëÎÊÌâ         Æô·¢Ê½ËÑË÷¡£
+
+¡¾¶¯Ì¬¹æ»®/µÝÍÆ/×éºÏ¼ÆÊý¡¿
+
+1342 ¿ªÐÄµÄ½ðÃ÷         ±³°üdp
+1264 Atomic Car Race    dp»ù±¾Ìâ.
+1146 ²ÉÒ©               01±³°ü Ê£ÓàÀàdp
+1355 The Bus            ¶þÎ¬µÄ×î³¤ÉÏÉý×ÓÐòÁÐ
+1169 ACM(ACronymMaker)  ¸øÒ»Ð©¶ÌÓïÇó°´ÌâÒâÒªÇó¹¹³ÉÖ¸¶¨ËõÐ´µÄ·½·¨Êý.
+1163 Tour               Å·¼¸ÀïµÂÂÃÐÐÉÌÎÊÌâ£¨ÎâÎÄ»¢ÄÇ±¾Êép314£©
+1233 Necklace Decomposition °´ÌâÒâ·Ö¸î×ÖÄ¸.
+1222 µ¥´ÊÑ¡Ôñ           ÔÚ¸ø¶¨ÎÄÕÂÀïÑ¡³öÁ¬ÐøµÄÒ»¶Î°üº¬×î¶àµÄwordÇÒ³¤¶È×î¶Ì.
+1211 ÉÌÈËµÄÐû´«         ÇóÁ½µã¼äL²½µ½´ïµÄ·½·¨Êý.
+1197 Hotel              ×Ö·û´®º¬Í¨ÓÃ·ûµÄÆ¥Åä,¼ÇÒä»¯ËÑË÷.
+1120 Walk Through the Forest ¼òµ¥ÎÞÏòÍ¼,Çó½Úµã1µ½½Úµã2µÄ°´ÌâÒâ×ß·¨µÄ·½·¨Êý.
+1091 Maximum Sum        Çó·ÖÁ½¸ö²¿·ÖºóµÄºÍ×î´ó.
+1098 Marching in the Corp ¸ø³ö²¿·ÖÆ«Ðò¹ØÏµ,Çó¿ÉÄÜµÄÅÅÃû·½·¨Êý.
+1049 Mondriaan          2*1¸ú1*1µÄ×©ÆÌ³É2*nµÄ×ßµÀµÄ·½·¨Êý%10.
+1121 Tri Tiling         2*1µÄ×ªÆÌ³É3*nµÄ×ßµÀµÄ·½·¨Êý¡£
+1019 Apple Tree         Ê÷ÐÍdp,±ßdfs±ß¸üÐÂ×îÓÅÖµ¡£
+1138 Ñ°±¦Ö®ÂÃ           Í¬ÉÏ¡£
+1225 µç×ÓÑÛ             Ê÷+Ò»±ßµÄÍ¼ÉÏÇó×îÐ¡±ß¸²¸Ç£¬Ê÷ÐÍdp.
+1327 Pinary             µÝÍÆÇóµÚk¸öpinaryÊý¡£
+1404 Hie with the Pie   ×´Ì¬Ñ¹Ëõdp
+1233 Necklace Decomposition °´ÌâÒâ·Ö¸î×ÖÄ¸.
+1221 Êý×ÖÓÎÏ·           n¸öÊýÐòÁÐÃ¿¸öÊýÃ¿´Î»á¼õÉÙb[i]¡£È¡³öm¸öÊý,Çó×î´óÖµ.
+1103 The Top-Code       ×Ö·û´®»®·Ödp,ÒªÇó×ÖµäÐòÊä³ö·½°¸Ê±µÄ×´Ì¬±íÊ¾·½·¨¡£
+1139 µçÂ·ÎÈ¶¨ÐÔ         µÝ¹é´¦ÀíÀ¨ºÅ¶ÔÐòÁÐËãµçÂ·²»Í¨¸ÅÂÊ.
+1108 Online Selection   ÎÊ´ðÓÎÏ·£¬n²ãk¸ö»Ø´ðÄÃÁËm·Ö£¬Çó×î´óµÄ»Ø´ð0µÄ¸öÊý.
+1123 The Longest Walk   ÓÐÏòÍ¼ÇóÈÎÒâÆðÖÕµãµÄÎÞÖØ¸´µãµÄ×î³¤Â·£¬×´Ì¬Ñ¹Ëõdp
+1033 City Road          Çó0,0×ßµ½n+1,m+1µÄ×î¶ÌÂ··½·¨Êý£¬ÖÐ¼äÓÐÒ»Ð©ÕÏ°­.
+1176 Two Ends           ¶þÈË´ÓÁ½Í·È¡Êý£¬¶Ô·½Ì°ÐÄÈ¡´óµÄ£¬Äã¾¡Á¿Ê¹µÃÁ½ÕßµÄ²î´ó.
+1413 Whac-a-Mole        ´òµØÊóÓÎÏ·£¬ÇóÒ»¶¨Ê±¼äÄÚÄÜ´òµ½×î¶àµØÊóµÄ·½°¸¡£
+1415  Honeycomb Walk    ÃÛ·äÎÑ×ßN²½»Øµ½³ö·¢µØµÄ·½·¨Êý¡£
+
+¡¾¶þ·Ö·¨¡¿
+
+1137 ºÓ´² ÇóÒ»¸ö×î³¤µÄÁ¬ÐøÇø¼äÂú×ãÆäÖÐµÄ×îÐ¡ÊýºÍ×î´óÊýÖ®²î²»´óÓÚk¡£
+1411 Pie  ¶þ·Ö
+
+¡¾Ì°ÐÄ¡¿
+
+1198 Substring          8¸ö´®ÅÅ³ö×îÐ¡×ÖµäÐò¡££¨ÓÃab<ba×ö±È½Ïº¯ÊýÅÅÐò£©
+1140 ¹úÍõµÄÒÅ²ú         ¿³²»´óÓÚn/2¸ö½ÚµãµÄ×î´óÊ÷Ö¦
+1134 »ýÄ¾·Ö·¢           ´ÓÐ¡µ½´óÅÅÐò.
+1172 Queens, Knights and Pawns È¾É«Ä£Äâ
+1193 Up the Stairs      °áÏä×ÓÉÏÂ¥ÌÝ.
+
+¡¾ÊýÑ§¡¿
+
+1302 Magic Square       ÆæÊý½×µÄÄ§·½¹¹Ôì
+1125 Arnie versus the IRS Á½¸öÈÕÆÚ¼ä0-9Êý×Ö³öÏÖ´ÎÊýÍ³¼Æ£¬ÖÜÄ©²»¼Æ¡£
+1200 Stick              ÆæÊý¸ùÄ¾¹÷£¬²»Í¬ÖÖÀàµÄÓÐÅ¼Êý¸ö£¬ÓÐÒ»ÖÖÖ»ÓÐÆæÊý¸ö¡£Òì»ò
+1251 Plinko             µ¯ÖéÓÎÏ·Ëã¸ÅÂÊ
+1258 It                 ¶àÏîÊ½Çóµ¼
+1224 ËÙÅäÓÎÏ·           ×éºÏÊýÑ§ÉÏ¾­µäµÄÎÈ¶¨»éÒöÎÊÌâ¡£
+1047 Super Snooker      Á¬ÐøµÄÊýºÍ¿É·ñ¶þ·Ö.
+1448 Antimonotonicity   ×î³¤²»µ¥µ÷×ÓÐòÁÐ£¨f[0]>f[1]<f[2]>f[3]..£©Í³¼Æ¼«µã¸öÊý
+1344 ÊýÁÐ               Ä³ÖÖ¹æÔòµÄÊýÁÐÉú³É
+1433 Optimal Parking    Ö±½ÓËã
+1259 Sum of Consecutive Prime Numbers Á¬ÐøËØÊýºÍ
+1240 Faulty Odometer    Ê®½øÖÆÊýÉÙÁË4µÄ¼ÆÊý
+1242 Suit Distribution  ÎÞÁÄ¼ÆÊý
+1239 Smallest Differencev Ò»Ð©ÊýÂë£¬×é³É²î×îÐ¡µÄÁ½¸öÊý
+1231 The Embarrassed Cryptographer Á½¸öËØÊý»ý£¬Ã¶¾ÙÒò×Ó
+1174 Square Count       Êý·½¿éÊý£¬ÈÝ³âÔ­Àí¡£
+1214 ÐÅºÅ·ÖÎö           ÊýÁÐÕÒ¹æÂÉÇóan=nµÄ¸öÊý. ¶þ½øÖÆ±íÊ¾Ê±ÊÇ»ØÎÄ¡£
+1218 ¼ÍÄîÓÊÆ±           Í¬1209
+1209 Sequence Sum Possibilities Çóm·Ö½â³É²»Í¬µÄÁ¬ÐøÕûÊýºÍµÄ·½·¨Êý
+1206 Stacking Cylinders ¶ÑÔ²Í²£¬½â·½³Ì.
+1203 The Cubic End      ¸øÒ»¸ö1,3,7,9½áÎ²µÄÊýÇóÒ»¸öÊýµÄÁ¢·½µÄÎ²²¿ÊÇÔ­Êý
+1199 GCD                ÇóÐ¡ÓÚNÇÒÓëNµÄGCD´óÓÚMµÄÊý¸öÊý.
+1190 Reduced ID Number  ÕÒ×îÐ¡µÄÊýÊ¹µÃ¸ø³öµÄËùÓÐÊýmodËüµÄ½á¹û²»Í¬
+1099 Packing Passengers ÏßÐÔÄ£·½³Ì
+1119 Factstone Benchmark Çón!<=2^kµÄ×î´ón. Á½±ßÈ¡¶ÔÊý.
+1412 Tour Guide         n¸öÎïÌåÏò¸÷¸ö·½Ïò×öÔÈËÙÔË¶¯¡£
+1305 Who¡¯s Winner      ²©ÞÄÌâ£¬ÕÒ¹æÂÉ¡£
+
+¡¾Ä£Äâ/ÆäËû¡¿
+
+1323 Switch text        ×Ö·û´®´¦Àí¡£
+1122 Prerequisites      Ä£ÄâÍ³¼ÆÑ§ÉúÑ¡¿Î¡£
+1046 Plane Spotting     ÅÅÐò¡£
+1097 LED Modding        ÅÅÐò¡£
+1093 Air Express        Ã¶¾Ù¡£
+1237 Paint Mix          ºÚ°×È¾ÁÏ»ìºÏ³öÖ¸¶¨»Ò¶ÈµÄÈ¾ÁÏ¡£
+1202 The Bank of Kalii  ÈÕÆÚ±È½Ï
+1187 Laserbox           »úÆ÷ÈËÔË¶¯Ä£Äâ£¬dfs±éÀú¡£
+1177 Take Your Vitamins °´ÒªÇó×öÒ»Ð©»ù±¾µÄÊý¾ÝÍ³¼Æ¡£
+1182 Context-Free Clock ÖÓ±íÊ±¼äºÍÊ±Õë·ÖÕëÖ®¼ä¼Ð½ÇµÄ¹ØÏµ¡£
+1100 Tennis Anyone      ÍøÇòÅÅÃûÍ³¼Æ¡£
+1110 ioi photos         Ä£Äâ.Í³¼Æ
+1128 DICE               ÅÐ¶Ï÷»×ÓÊÇ×óÊÖÐÍ»¹ÊÇÓÒÊÖÐÍ£¬Ä£ÄâÐý×ª.(ÄæÐò¿ÉÒÔ×ö)
+1129 ISBN               ¸ø¶¨¹æÂÉÇóISBN×îºóÒ»Î».
+1133 SPAM               Êä³öÊäÈë×Ö·û´®ÀïµÄºÏ·¨emailµØÖ·¡£
+1401 Children of the Candy Corn Ä£Äâ×óÊÖ¹æÔò×ßÃÔ¹¬¡£
+1438 Shopaholic         ÅÅÐò£¬¸ôÈýÇóºÍ¡£
+1306 Sorting Algorithm  »ù±¾µÄÅÅÐò£¬Êä³ö¡£
+1205 brainf*ck          Ä£Äâ½âÊÍÖ´ÐÐÌâÄ¿ÖÐ¶¨ÒåµÄÒ»ÖÖ±à³ÌÓïÑÔ¡£
+--
+
+¡ù À´Ô´:£®ÒÝÏÉÊ±¿Õ Yat-sen Channel http://bbs.zsu.edu.cn [FROM: 172.18.35.85]
+¡ù ÐÞ¸Ä:£®acmer ì¶ Feb 17 23:29:05 2008 ÐÞ¸Ä±¾ÎÄ£®[FROM: 172.18.35.85]
+±¾ÎÄÈ«ÎÄÁ´½Ó:
+http://bbs.zsu.edu.cn/bbscon?board=ACMICPC&file=M.1203261724.A
