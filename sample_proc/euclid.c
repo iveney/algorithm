@@ -1,7 +1,6 @@
 // recursive Euclid and non-recursive Euclid
 // GCD recursion theorem:
 // gcd(a,b) = gcd(b, a mod b)
-//
 // gcd(a,b) = gcd(|a|,|b|)
 #include <stdio.h>
 #define abs(x) (x<0?(-x):(x))
@@ -36,10 +35,30 @@ int euclid_nonrecur(int a,int b){
 	return a;
 }
 
+// the extended version of Euclid
+// gets the linear coefficient of a and b
+// input: int a,int b : the two number to get GCD
+//        int *x,int *y : stores the coefficient
+// output:d=gcd(a,b)
+int extend_euclid(int a,int b,int *x,int *y){
+	if(b==0){
+		*x=1;
+		*y=0;
+		return a;
+	}
+	int xx,yy;
+	int d = extend_euclid(b, a%b,&xx,&yy);
+	*x=yy;
+	*y=xx-(a/b)*yy;
+	return d;
+}
+
 int main(){
 	int a,b;
 	while( scanf("%d%d",&a,&b) != EOF ){
-		printf("%d\n",euclid_nonrecur(a,b));
+		int d,x,y;
+		d=extend_euclid(a,b,&x,&y);
+		printf("%d %d %d\n",d,x,y);
 	}
 	return 0;
 }

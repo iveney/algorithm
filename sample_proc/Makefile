@@ -1,7 +1,7 @@
 CC=/usr/bin/gcc
-out := $(FILE:.c=)
+out := ${FILE:.cpp,.c=}
 
 default:
-	$(CC) -o $(out) $(FILE)
+	echo $(out)
 .phony clean:
 	rm -rf *.out
