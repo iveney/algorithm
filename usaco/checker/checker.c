@@ -69,7 +69,9 @@ inline int search(board* pb,int depth){
 	}
 	int i,j;
 	for(i=1;i<=N;i++){
-		if(depth==1 && i>(N+1)/2) break; // symmetry break
+		// symmetry break(half)
+		// actually we can do one more half...
+		if(depth==1 && i>(N+1)/2) break; 
 		if( (occupy(pb,depth,i)) == 0 ){
 			at[depth]=i;
 			board cb;
