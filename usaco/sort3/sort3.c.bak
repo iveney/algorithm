@@ -1,0 +1,54 @@
+/*
+ID: iveney1 
+LANG: C
+TASK: sort3
+*/
+#include <stdio.h>
+#define MAX 1005
+
+int arr[MAX];
+
+int main(){
+	freopen("sort3.in","r",stdin);
+#ifndef LOCAL
+	freopen("sort3.out","w",stdout);
+#endif
+
+	int N;
+	int i;
+	scanf("%d\n",&N);
+	for(i=0;i<N;i++)
+		scanf("%d\n",&arr[i]);
+
+	for(i=0;i<N;i++)
+		printf("%d ",arr[i]);
+	printf("\n");
+
+	int l=0,r=N-1;
+	int count=0;
+	int last=-1;
+	for(i=1;i<=3;i++){
+		l=last+1;
+		r=N-1;
+		while(l!=r){
+			while( arr[l] == i && l!=r )
+				l++;
+			while( arr[r] != i && l!=r )
+				r--;
+			if( l == r ) break;
+			int temp = arr[l];
+			arr[l] = arr[r];
+			arr[r]=temp;
+			last = l;
+			count++;
+		}
+	}
+
+	for(i=0;i<N;i++)
+		printf("%d ",arr[i]);
+	printf("\n\n%d\n",count);
+#ifdef LOCAL
+	// output sth. here
+#endif
+	return 0;
+}
