@@ -7,6 +7,7 @@ using std::string;
 using std::cout;
 using std::endl;
 
+// http://leetcode.com/onlinejudge#question_131
 // Idea:
 // recursively divide string into prefix + postfix
 // if prefix is palindrome, result = prefix + {partition postfix}
