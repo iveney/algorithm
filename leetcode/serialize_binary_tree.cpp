@@ -23,7 +23,8 @@ int main(int argc, char const *argv[])
   TreeNode *read = deserialize_tree("tmp.txt");
   preorder_cout(read);
 
-  read = deserialize_tree(string("1 # 2 3"));
+  read = deserialize_tree(string("1 2 # # 3 4 # 5 # #"));
   preorder_cout(read);
+  inorder_cout(read);
   return 0;
 }
