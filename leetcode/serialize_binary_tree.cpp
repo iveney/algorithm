@@ -22,5 +22,8 @@ int main(int argc, char const *argv[])
   serialize_tree("tmp.txt", root);
   TreeNode *read = deserialize_tree("tmp.txt");
   preorder_cout(read);
+
+  read = deserialize_tree(string("1 # 2 3"));
+  preorder_cout(read);
   return 0;
 }

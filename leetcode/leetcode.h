@@ -8,6 +8,7 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <functional>
 #include <vector>
 #include <string>
@@ -90,12 +91,12 @@ void serialize_tree(const char* filename, TreeNode *root) {
   fclose(f);
 }
 
-void deserialize_tree_recursive(ifstream& ifs, TreeNode *&node) {
+void deserialize_tree_recursive(istream& stream, TreeNode *&node) {
   string token;
-  // ifs >> token;
-  if ( !(ifs >> token) )
+  if ( !(stream >> token) )
     return;
 
+  // sentinel
   if (token == "#") {
     node = NULL;
     return;
@@ -103,8 +104,8 @@ void deserialize_tree_recursive(ifstream& ifs, TreeNode *&node) {
 
   int val = stoi(token);
   node = new TreeNode(val);
-  deserialize_tree_recursive(ifs, node->left);
-  deserialize_tree_recursive(ifs, node->right);
+  deserialize_tree_recursive(stream, node->left);
+  deserialize_tree_recursive(stream, node->right);
 }
 
 TreeNode *deserialize_tree(const char* filename) {
@@ -117,6 +118,15 @@ TreeNode *deserialize_tree(const char* filename) {
   TreeNode *root = NULL;
   deserialize_tree_recursive(ifs, root);
   ifs.close();
+
+  return root;
+}
+
+// deserialize string from a C++ string
+TreeNode *deserialize_tree(const string& serialize_str) {
+  istringstream ss(serialize_str);
+  TreeNode *root = NULL;
+  deserialize_tree_recursive(ss, root);
 
   return root;
 }
