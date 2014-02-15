@@ -14,6 +14,8 @@
 #include <string>
 using namespace std;
 
+///////////////////////////////////////////////////////////////////////////////
+// tree related
 struct TreeNode {
     int val;
     TreeNode *left;
@@ -91,6 +93,7 @@ void serialize_tree(const char* filename, TreeNode *root) {
   fclose(f);
 }
 
+// pre order deserialize
 void deserialize_tree_recursive(istream& stream, TreeNode *&node) {
   string token;
   if ( !(stream >> token) )
@@ -129,6 +132,24 @@ TreeNode *deserialize_tree(const string& serialize_str) {
   deserialize_tree_recursive(ss, root);
 
   return root;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// linked list related
+
+// Definition for singly-linked list.
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x = 0) : val(x), next(NULL) {}
+};
+
+void print_list(ListNode *head) {
+  while(head != NULL) {
+    cout << head->val << ' ';
+    head = head->next;
+  }
+  cout << '\n';
 }
 
 #endif
