@@ -11,6 +11,8 @@
 #include <sstream>
 #include <functional>
 #include <vector>
+#include <queue>
+#include <stack>
 #include <string>
 using namespace std;
 
@@ -22,6 +24,46 @@ struct TreeNode {
     TreeNode *right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
+
+// struct TreeLinkNode {
+//   int val;
+//   TreeLinkNode *left, *right, *next;
+//   TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {} 
+// };
+
+struct TreeLinkNode : public TreeNode {
+  TreeLinkNode *left, *right, *next;
+  TreeLinkNode(int x) : TreeNode(x), left(NULL), right(NULL), next(NULL) {} 
+};
+
+// return an identical tree from root, next is untouched (NULL)
+TreeLinkNode *fromTreeNode(TreeNode *root) {
+  if (root == NULL) return NULL;
+
+  TreeLinkNode *node = new TreeLinkNode(root->val);
+  node->left = fromTreeNode(root->left);
+  node->right = fromTreeNode(root->right);
+  return node;
+}
+
+ostream & operator << (ostream &os, TreeLinkNode *node) {
+  if (node == NULL)
+    os << "#";
+  else
+    os << node->val;
+  return os;
+}
+
+void printTreeLinkNode(TreeLinkNode *root) {
+  if (root == NULL) return;
+  cout << root->val << ":";
+  cout << " L = " << root->left;
+  cout << " R = " << root->right;
+  cout << " N = " << root->next;
+  cout << '\n';
+  printTreeLinkNode(root->left);
+  printTreeLinkNode(root->right);
+}
 
 void preorder(TreeNode *root, function<void(TreeNode*)> func) {
   if (root == NULL)
@@ -68,6 +110,33 @@ void inorder_cout(TreeNode *root) {
 void postorder_cout(TreeNode *root) {
   postorder(root, cout_tree_node);
   cout << endl;
+}
+
+void level_order_cout(TreeNode *root) {
+  queue<TreeNode *> curr, next;
+  queue<TreeNode *> *p_curr = &curr, *p_next = &next;
+  p_curr->push(root);
+
+  while (!p_curr->empty()) {
+    TreeNode *p = p_curr->front();
+    p_curr->pop();
+
+    if (p == NULL)
+      cout << "# ";
+    else {
+      cout << p->val << ' ';
+      p_next->push(p->left);
+      p_next->push(p->right);
+    }
+
+    if (p_curr->empty()) {
+      cout << '\n';
+
+      queue<TreeNode *> *tmp = p_curr;
+      p_curr = p_next;
+      p_next = tmp;
+    }
+  } // while
 }
 
 void serialize_tree_recursive(FILE* f, TreeNode *root) {
