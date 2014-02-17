@@ -221,4 +221,15 @@ void print_list(ListNode *head) {
   cout << '\n';
 }
 
+ListNode *list_from_array(int* arr, int n) {
+  if (n == 0) return NULL;
+  ListNode *head = new ListNode(arr[0]);
+  ListNode *p = head;
+  for (int i = 1; i < n; ++i) {
+    p->next = new ListNode(arr[i]);
+    p = p->next;
+  }
+  return head;
+}
+
 #endif
