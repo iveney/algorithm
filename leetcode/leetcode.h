@@ -14,6 +14,8 @@
 #include <queue>
 #include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
 using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -231,5 +233,80 @@ ListNode *list_from_array(int* arr, int n) {
   }
   return head;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// Undirected graph
+struct UndirectedGraphNode {
+  int label;
+  vector<UndirectedGraphNode *> neighbors;
+  UndirectedGraphNode(int x) : label(x) {};
+};
+
+// deserialize a graph
+// assume the serialization is correct
+UndirectedGraphNode *deserialize_graph(istream& in) {
+  unordered_map<int, UndirectedGraphNode *> map;
+  UndirectedGraphNode *current_node = NULL;
+  UndirectedGraphNode *ret = NULL;
+
+  string token;
+  while ( getline(in, token,'#') ) {
+    current_node = NULL;
+    istringstream line(token);
+    string str_label;
+    while ( getline(line, str_label, ',') ) {
+      int label = stoi(str_label);
+      if (current_node == NULL) {
+        // this is a new node
+        current_node = map[label];
+        if (current_node == NULL)
+          map[label] = current_node = new UndirectedGraphNode(label);
+
+        if (ret == NULL) ret = current_node;
+      } else {
+        // this is a neighbor node
+        UndirectedGraphNode *nbr = map[label];
+        if ( nbr == NULL )
+          map[label] = nbr = new UndirectedGraphNode(label);
+
+        current_node->neighbors.push_back(nbr);
+      }
+    } // while
+  } // while
+
+  return ret;
+}
+
+UndirectedGraphNode *deserialize_graph(const string &str) {
+  istringstream ss(str);
+  return deserialize_graph(ss);
+}
+
+void serialize_graph(ostream& os, UndirectedGraphNode *node) {
+  std::queue<UndirectedGraphNode *> myqueue;
+  std::unordered_set<int> visited;
+  myqueue.push(node);
+
+  while ( !myqueue.empty() ) {
+    UndirectedGraphNode *p = myqueue.front();
+    myqueue.pop();
+
+    // already visited this node
+    if ( visited.find(p->label) != visited.end() )
+      continue;
+
+    visited.insert(p->label);
+    os << p->label;
+    for (auto nbr : p->neighbors) {
+      os << ',' << nbr->label;
+      if ( visited.find(nbr->label) == visited.end() )
+        myqueue.push(nbr);
+    }
+    if (!myqueue.empty())
+      os << '#';
+  }
+  os << endl;
+}
+
 
 #endif
