@@ -1,6 +1,9 @@
 // inspired by 
 // http://www.glassdoor.com/Interview/Google-Interview-RVW3059942.htm
 // http://stackoverflow.com/questions/742013/how-to-code-a-url-shortener
+// 
+// sqlite tutorial:
+// http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
 
 // we assume the database and table is ready
 // we do not sanitize the url
