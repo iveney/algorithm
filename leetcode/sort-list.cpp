@@ -1,4 +1,5 @@
 // interesting, I used a quicksort
+// should use a mergesort for cleaner code
 #include "leetcode.h"
 
 class Solution {
