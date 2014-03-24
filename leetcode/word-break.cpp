@@ -1,47 +1,47 @@
 #include "leetcode.h"
 
-// with memoization
+// idea: DP
+// BS[i] : 0..i-1 can be broken in dict words,
+// we only need to traverse the dict and set some j > i, where j-i+1 = word len
+// can be broken if s[i..j] matches the word
 class Solution {
-  unordered_map<string, bool> memo;
 public:
   bool wordBreak(string s, unordered_set<string> &dict) {
-    if (s == "") return true;
-
     int n = s.size();
-    for (int i = 1; i <= n; ++i) {
-      string prefix = s.substr(0, i);
-      if (dict.find(prefix) == dict.end())
+    vector<bool> bs(n + 1);
+    bs[0] = true;
+    for (int i = 0; i < n; ++i) {
+      // the previous cannot be broken, no need to start from this position
+      if (!bs[i])
         continue;
+      for (auto &word : dict) {
+        int len = word.size();
+        int end = i + len;
+        if (end > n)
+          continue;
 
-      string remain = s.substr(i, n-i);
+        // can be broken somehow
+        if (bs[end]) continue;
 
-      if (memo.find(remain) != memo.end() &&
-          memo[remain]) {
-        // processed before
-        return true;
-      } else if (wordBreak(remain, dict)) {
-        memo[remain] = true;
-        return true;
-      } else {
-        memo[remain] = false;
-      }
-   }
-
-   return false;
+        if (s.substr(i, len) == word) 
+          bs[end] = true;
+      } // for
+    } // for
+    return bs[n];
   }
 };
 
 int main() {
   Solution sol;
   vector<string> s = {
-    // "leetcodecodeleet",
-    // "feet",
-    // "leevis",
-    // "teef",
+    "leetcodecodeleet",
+    "feet",
+    "leevis",
+    "teef",
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
   };
-  // unordered_set<string> dict = {"leet", "code", "feet", "cdma", "lee", "vis"};
-  unordered_set<string> dict = {"a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"};
+  unordered_set<string> dict = {"leet", "code", "feet", "cdma", "lee", "vis"};
+  // unordered_set<string> dict = {"a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"};
   for (auto str : s) {
     printf("%s : %d\n", str.c_str(), sol.wordBreak(str, dict));
   }

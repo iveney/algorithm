@@ -2,26 +2,14 @@
 #include "array2D.hpp"
 
 class Solution {
-public:
-  int maximalRectangle(vector<vector<char> > &matrix) {
-    int n = matrix.size();
-    if (n == 0) return 0;
-    int m = matrix[0].size();
-    if (m == 0) return 0;
+  vector<vector<int> > rb;
 
+  void computeRbound(const vector<vector<char> > &matrix, int n, int m) {
+    rb.resize(n);
     // compute left and right bound
-    vector<vector<int> > lb(n), rb(n);
     for (int i = 0; i < n; ++i) {
-      lb[i].assign(m, -1);
       rb[i].assign(m, -1);
-      lb[i][0]   = (matrix[i][0]   == '0' ? -1 : 0);
       rb[i][m-1] = (matrix[i][m-1] == '0' ? -1 : m-1);
-      for (int j = 1; j < m; ++j) {
-        if (matrix[i][j] == '0')
-          continue;
-        int l = lb[i][j-1];
-        lb[i][j] = (l != -1? l : j);
-      }
       for (int j = m-2; j >= 0; --j) {
         if (matrix[i][j] == '0')
           continue;
@@ -29,42 +17,47 @@ public:
         rb[i][j] = (r != -1? r : j);
       }
     } // for
+  }
 
-    int area = 0;
-    for (int i = 0; i < n; ++i) {
-      for (int j = 0; j < m; ++j) {
-        if (lb[i][j] == -1) continue;
+  inline int computeArea(int llr, int llc, int urr, int urc) {
+    return (urr - llr + 1) * (urc - llc + 1);
+  }
 
-        int L = lb[i][j], R = rb[i][j];
+public:
+  int maximalRectangle(vector<vector<char> > &matrix) {
+    int n = matrix.size();
+    if (n == 0) return 0;
+    int m = matrix[0].size();
+    if (m == 0) return 0;
 
-        // the maximal of this line has been computed before
-        if (i - 1 >= 0 && L == lb[i-1][j] && R == rb[i-1][j])
+    computeRbound(matrix, n, m);
+
+    int LLR, LLC, URR, URC;
+    int maxarea = 0;
+    for (int r = 0; r < n; ++r) {
+      for (int c = 0; c < m; ++c) {
+        if (matrix[r][c] == '0')
           continue;
-        int width = R - L + 1;
-        int height = 1;
 
-        // go up
-        for (int k = i-1; k >= 0; --k) {
-          if (lb[k][j] <= L && rb[k][j] >= R) {
-            ++height;
-          } else {
+        int urr = r, urc = rb[r][c];
+        for (int urr = r; urr < n; ++urr) {
+          if (matrix[urr][c] == '0')
             break;
+
+          urc = min(rb[urr][c], urc);
+          int area = computeArea(r, c, urr, urc);
+          if (area > maxarea) {
+            maxarea = area;
+            LLR = r;
+            LLC = c;
+            URR = urr;
+            URC = urc;
           }
-        }
-        // go down
-        for (int k = i+1; k < n; ++k) {
-          if (lb[k][j] <= L && rb[k][j] >= R) {
-            ++height;
-          } else {
-            break;
-          }
-        }
-        printf("%d,%d, w=%d, h=%d\n", i, j, width, height);
-        area = max(area, width * height);
-        j = R;  // skip this line
-      } // for j
-    } // for i
-    return area;
+        } // for urr
+      } // for c
+    } // for r
+    // printf("(%d, %d) - (%d, %d) = %d\n", LLR, LLC, URR, URC, maxarea);
+    return maxarea;
   }
 };
 
