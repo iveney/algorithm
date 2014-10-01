@@ -38,6 +38,42 @@ public:
   }
 };
 
+// 2nd take
+class SolutionV2 {
+public:
+  pair<int, int> getOperand(stack<int> &st) {
+    int b = st.top();
+    st.pop();
+    int a = st.top();
+    st.pop();
+    return make_pair(a, b);
+  }
+
+  int evalRPN(vector<string> &tokens) {
+    stack<int> st;
+    for(string & token : tokens) {
+      int a, b;
+      if (token == "+") {
+        tie(a, b) = getOperand(st);
+        st.push(a + b);
+      } else if (token == "-") {
+        tie(a, b) = getOperand(st);
+        st.push(a - b);
+      } else if (token == "*") {
+        tie(a, b) = getOperand(st);
+        st.push(a * b);
+      } else if (token == "/") {
+        tie(a, b) = getOperand(st);
+        st.push(a / b);
+      } else {
+        st.push(stoi(token));
+      }
+    }
+
+    return st.top();
+  }
+};
+
 int main(int argc, char const *argv[])
 {
   Solution sol;
