@@ -2,6 +2,72 @@
 // should use a mergesort for cleaner code
 #include "leetcode.h"
 
+class SolutionV2 {
+public:
+  ListNode * sortList(ListNode *head) {
+    ListNode *tail = NULL;
+    tie(head, tail) = sortListRecursive(head);
+    return head;
+  }
+
+  pair<ListNode *, ListNode *> sortListRecursive(ListNode *head) {
+    if (head == NULL) {
+      return make_pair<ListNode *, ListNode *>(NULL, NULL);
+    }
+
+    // three lists
+    // pivot list
+    // < pivot list
+    // > pivot list
+    ListNode *phead = head, *ptail = head;
+    ListNode *p = head->next;
+    ListNode *lhead = NULL, *ltail = NULL;
+    ListNode *rhead = NULL, *rtail = NULL;
+
+    // partition
+    while (p != NULL) {
+      // found that it will TLE if I do not chain the nodes that have the 
+      // same value as pivot
+      if (p->val == phead->val) {
+        ptail->next = p;
+        ptail = p;
+      } else if (p->val < phead->val) {
+        if (lhead == NULL) {
+          lhead = ltail = p;
+        } else {
+          ltail->next = p;
+          ltail = p;
+        }
+      } else {
+        if (rhead == NULL) {
+          rhead = rtail = p;
+        } else {
+          rtail->next = p;
+          rtail = p;
+        }
+      }
+      p = p->next;
+    }
+
+    ptail->next = NULL;
+    ListNode *newhead = phead, *newtail = ptail;
+    if (ltail) {
+      ltail->next = NULL;
+      tie(lhead, ltail) = sortListRecursive(lhead);
+      ltail->next = phead;
+      newhead = lhead;
+    }
+    if (rtail) {
+      rtail->next = NULL;
+      tie(rhead, rtail) = sortListRecursive(rhead);
+      ptail->next = rhead;
+      newtail = rtail;
+    }
+
+    return make_pair(newhead, newtail);
+  }
+};
+
 class Solution {
 public:
   ListNode *sortList(ListNode *head) {
