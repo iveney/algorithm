@@ -1,6 +1,47 @@
 #include "leetcode.h"
 #include "array2D.hpp"
 
+class SolutionV2 {
+public:
+  vector<vector<int> > threeSum(vector<int> &num) {
+    int n = num.size();
+    vector<vector<int> > result;
+    if (n < 3) return result;
+
+    sort(num.begin(), num.end());
+    for (int i = 0; i < n - 2; ++i) {
+      if (i > 0 && num[i] == num[i-1]) {
+        continue;
+      }
+      if (num[i] > 0) {
+        break;
+      }
+      for (int j = i + 1; j < n - 1; ++j) {
+        if (j-1 != i && num [j] == num[j-1]) {
+          continue;
+        }
+        if (num[i] + num[j] > 0) {
+          break;
+        }
+        for (int k = j + 1; k < n; ++k) {
+          int sum = num[i]+num[j]+num[k];
+          if (sum > 0) {
+            break;
+          }
+          if (k-1 != j && num[k] == num[k-1]) {
+            continue;
+          }
+          if (sum == 0) {
+            result.push_back(vector<int>{num[i],num[j],num[k]});
+          }
+        }// k
+      }// j
+    }// i
+      
+    return result;
+  }
+};
+
 class Solution {
 public:
   vector<vector<int> > threeSum(vector<int> &num) {
