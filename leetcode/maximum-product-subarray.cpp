@@ -4,6 +4,40 @@
 class Solution {
 public:
 
+  // still based on the same idea, but simpler code
+  int maxProductV2(int A[], int n) {
+    if (n == 1) {
+      return A[0];
+    }
+    int result = A[0];
+    int prod = 1;
+    int afterfirstneg = 0;
+    bool seefirstneg = false;
+    for (int i = 0; i < n; ++i) {
+      if (A[i] == 0) {
+        // reset
+        prod = 1;
+        afterfirstneg = 0;
+        seefirstneg = false;
+        result = max(result, 0);
+        continue;
+      }
+
+      if (A[i] < 0 && !seefirstneg) {
+        seefirstneg = true;
+        afterfirstneg = 0;
+      } else {
+        if (afterfirstneg == 0) {
+          afterfirstneg = 1;
+        }
+        afterfirstneg *= A[i];
+      }
+      prod *= A[i];
+      result = max({result, prod, afterfirstneg});
+    }
+    return result;
+  }
+
   // clumsy solution but O(n) space time and memory
   // idea is to identify all 0, break the array to sub-arrays that do not contain 0
   // for each subarray, if it contains even number of negative, then the max is multiply all
@@ -70,15 +104,22 @@ public:
 };
 
 int main() {
-  // int A[] = {-6, -3, 0, -1};
-  // int A[] = {2,3,-2,4};
-  // int A[] = {0, 0, 0};
-  // int A[] = {0, 0, 0, 1};
-  int A[] = {1,2,3,0,2,3,4,0,-3,4,-5,0,-5,-5,-5};
-  // int A[] = {-5,0,-3,0,-4};
-  // int A[] = {-2};
+  vector<vector<int> > As= {
+    {-6, -3, 0, -1},
+    {2,3,-2,4},
+    {0, 0, 0},
+    {0, 0, 0, 1},
+    {1,2,3,0,2,3,4,0,-3,4,-5,0,-5,-5,-5},
+    {-5,0,-3,0,-4},
+    {-2},
+    {2,-5,-2,-4,3},
+    {-1,0,-2,2},
+  };
   Solution sol;
-  cout << sol.maxProduct(A, sizeof(A) / sizeof(int)) << endl;
+  for (auto &A : As) {
+    cout << sol.maxProduct(A.data(), A.size()) << endl;
+    cout << sol.maxProductV2(A.data(), A.size()) << endl;
+  }
   
   return 0;
 }
