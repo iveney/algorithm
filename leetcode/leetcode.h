@@ -308,5 +308,23 @@ void serialize_graph(ostream& os, UndirectedGraphNode *node) {
   os << endl;
 }
 
+// Dump the binary tree to graphviz format
+void dump_tree_graphviz_recursive(TreeNode* root) {
+  if (root == NULL) return;
+
+  if (root->left) {
+    cout << root->val << " -> " << root->left->val << ";\n";
+  }
+
+  if (root->right) {
+    cout << root->val << " -> " << root->right->val << ";\n";
+  }
+}
+
+void dump_tree_graphviz(const string &name, TreeNode* root) {
+  cout << "digraph " << name << " {\n";
+  preorder(root, dump_tree_graphviz_recursive);
+  cout << "}\n";
+}
 
 #endif
