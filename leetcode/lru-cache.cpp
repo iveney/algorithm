@@ -1,3 +1,6 @@
+// expected output:
+// (6, 19) (8, 1) (5, 2) (1, 20) (2, 2) (4, 22) (7, 24) (9, 26) (13, 28) (11, 26) 
+
 #include <unordered_map>
 #include <list>
 #include "leetcode.h"
@@ -32,12 +35,15 @@ public:
     return ci;
   }
 
+  // update the recently used item in hash
   void update_mru() {
     ListIterator li = cache.end();
     advance(li, -1);
     keys[li->key] = li;
   }
   
+  // Get the value (will always be positive) of the key if the key exists in
+  // the cache, otherwise return -1.
   int get(int key) {
     MapIterator mi = keys.find(key);
     if (mi != keys.end()) {
@@ -50,6 +56,7 @@ public:
     return -1;
   }
   
+  // Set or insert the value if the key is not already present.
   void set(int key, int value) {
     MapIterator mi = keys.find(key);
     CacheItem kv(key, value);
