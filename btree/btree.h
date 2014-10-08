@@ -1,35 +1,34 @@
 #ifndef _BTREE_H_
 #define _BTREE_H_
 
-#include <string>
-using std::string;
+#include <vector>
+using std::vector;
 
-// for simplicity, use typedef instead of template
-typedef int Key;
-typedef string Value;
+// using knuth's definition: ORDER = # number of children
+// then the tree is containing maximum (ORDER-1) keys, 
+// and minimum (ORDER-1)/2 keys
+const int ORDER = 4;
 
-// using knuth's definition: order = # number of children
-// then the tree is containing maximum (order-1) keys, 
-// and minimum (order-1)/2 keys
-const int order = 5;
+class Btree{
+public:
+  Btree(): parent(NULL) {
+    // data.resize(ORDER-1);
+    children.resize(ORDER);
+  }
 
-namespace BTree{
-  class Node{
-    Node(): parent(NULL) {
-      for (int i = 0; i < order; i++) {
-        child[i] = NULL;
-      }
-    }
-    Node *parent;
-    Node *child[order];
-    Key key[order-1];
-    Value value[order-1];
-  };
+  void insert(int value);
+  Btree* find(int value);
 
-  class BTree{
-    BTree():root(NULL){};
-    Node *root;
-  };
-}
+  static void insert_node(Btree *node);
+
+  bool full() const {return data.size() == ORDER - 1;}
+  //void remove(int value);
+
+  vector<int> data;
+  Btree *parent;
+  vector<Btree *> children;
+};
+
+void dump_graphviz(Btree* root);
 
 #endif /* end of include guard: _BTREE_H_ */
