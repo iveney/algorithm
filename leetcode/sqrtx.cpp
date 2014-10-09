@@ -1,6 +1,25 @@
 #include <limits>
 #include "leetcode.h"
 
+class SolutionV2 {
+public:
+  int sqrt(int x) {
+    if (x <= 0) return 0;
+
+    int b = 1, e = x, ans = 0;
+    while (b <= e) {
+      int m = b + (e - b) / 2;  // prevent overflow
+      if (m <= x / m) {
+        ans = m;
+        b = m + 1;
+      } else
+        e = m - 1;
+    }
+
+    return ans;
+  }
+};
+
 class Solution {
 public:
   int sqrt(int x) {
