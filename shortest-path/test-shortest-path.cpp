@@ -5,11 +5,13 @@
 #include "bellman-ford.h"
 
 void output_result(const vector<int> &dist, const vector<int> &pred) {
+  typedef std::remove_reference<decltype(dist)>::type::value_type value_type;
+
   copy(dist.begin(), dist.end(), 
-    ostream_iterator<int>(cout, " "));
+    ostream_iterator<value_type>(cout, " "));
   cout << '\n';
   copy(pred.begin(), pred.end(), 
-    ostream_iterator<int>(cout, " "));
+    ostream_iterator<value_type>(cout, " "));
   cout << "\n\n";
 }
 
