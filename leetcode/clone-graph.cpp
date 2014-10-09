@@ -2,6 +2,73 @@
 #include <unordered_map>
 #include "leetcode.h"
 
+class SolutionV2 {
+public:
+  unordered_set<int> visited;
+  unordered_map<int, UndirectedGraphNode *> nodes;
+
+  UndirectedGraphNode *dfs(UndirectedGraphNode *node) {
+    if (node == NULL) return NULL;
+
+    if ( visited.find(node->label) != visited.end() )
+      return nodes[node->label];
+
+    auto &node_clone = nodes[node->label];
+    if (!node_clone)
+      node_clone = new UndirectedGraphNode(node->label);
+
+    for (UndirectedGraphNode *nbr : node->neighbors) {
+      auto &nbr_clone = nodes[nbr->label];
+      if (!nbr_clone) {
+        nbr_clone = dfs(nbr);
+      }
+      node_clone->neighbors.push_back(nbr_clone);
+    }
+    visited.insert(node->label);
+    return node_clone;
+  }
+
+  UndirectedGraphNode *bfs(UndirectedGraphNode *node) {
+    if (node == NULL) return NULL;
+
+    nodes[node->label] = new UndirectedGraphNode(node->label);
+    queue<UndirectedGraphNode *> q;
+    q.push(node);
+
+    while (!q.empty()) {
+      UndirectedGraphNode *nd = q.front();
+      q.pop();
+      if (visited.find(nd->label) != visited.end()) {
+        continue;
+      }
+
+      auto &node_clone = nodes[nd->label];
+      if (!node_clone)
+        node_clone = new UndirectedGraphNode(nd->label);
+      visited.insert(nd->label);
+      
+      for (UndirectedGraphNode *nbr : nd->neighbors) {
+        auto &nbr_clone = nodes[nbr->label];
+        if (!nbr_clone) {
+          nbr_clone = new UndirectedGraphNode(nbr->label);
+        }
+        node_clone->neighbors.push_back(nbr_clone);
+        if (visited.find(nbr->label) == visited.end()) {
+          q.push(nbr);
+        }
+      }
+    }
+
+    return nodes[node->label];
+  }
+
+  UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+    visited.clear();
+    nodes.clear();
+    return bfs(node);
+  }
+};
+
 class Solution {
   std::unordered_map<int, UndirectedGraphNode *> clone;
   std::unordered_set<int> visited;
