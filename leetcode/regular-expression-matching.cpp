@@ -1,6 +1,38 @@
 // interesting, think again
 #include "leetcode.h"
 
+class SolutionV2 {
+public:
+  bool isMatch(const char *s, const char *p) {
+    if (s == NULL || p == NULL) return true;
+
+    int i = 0, j = 0;
+    while (s[i] != 0) {
+      if (p[j] == '.' || s[i] == p[j]) {
+        if (p[j+1] == '*') {
+          return isMatch(s + i, p + j + 2) || // match zero
+                 isMatch(s + i + 1, p + j);   // match one or more
+        } else {
+          ++i;
+          ++j;
+        }
+      } else if (p[j] != 0 && p[j+1] == '*') {
+        // p[j] != '*' && s[i] != p[j]
+        return isMatch(s + i, p + j + 2);
+      } else {
+        return false;
+      }
+    } // while
+
+    // remaining pattern
+    while (p[j] != 0 && p[j+1] == '*') {
+      j += 2;
+    }
+
+    return p[j] == 0;
+  }
+};
+
 class Solution {
 public:
   bool isMatch(const char *s, const char *p) {
