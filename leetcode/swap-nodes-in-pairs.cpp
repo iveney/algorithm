@@ -1,19 +1,31 @@
-#include <iostream>
-using namespace std;
+#include "leetcode.h"
 
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
+/**
+* Definition for singly-linked list.
+* struct ListNode {
+*     int val;
+*     ListNode *next;
+*     ListNode(int x) : val(x), next(NULL) {}
+* };
+*/
 
-void output(ListNode *head) {
-  while(head!=NULL) {
-    cout << head->val << " ";
-    head = head->next;
+class SolutionRecursive {
+public:
+  ListNode *swapPairs(ListNode *head) {
+    // try recursive
+    if (head == NULL) return NULL;
+
+    ListNode *p = head, *q = head->next;
+    if (q == NULL) {
+      return p;
+    }
+    ListNode *r = swapPairs(q->next);
+    p->next = r;
+    q->next = p;
+
+    return q;
   }
-  cout << endl;
-}
+};
 
 class Solution {
 public:
@@ -42,22 +54,19 @@ public:
 
 int main(int argc, char const *argv[])
 {
-  ListNode nodes[] = {
-    ListNode(1),
-    ListNode(2),
-    ListNode(3),
-    ListNode(4),
-    ListNode(6),
+  vector<vector<int> > lists {
+    {1,2,3,4},
+    {1,2,3},
+    {1,2},
+    {1},
+    {},
   };
-  int n = sizeof(nodes) / sizeof(ListNode);
-  for (int i = 0; i < n-1; ++i)
-  {
-    nodes[i].next = &nodes[i+1];
-  }
   Solution sol;
-  ListNode *head = &nodes[0];
-  output(head);
-  ListNode *newhead = sol.swapPairs(head);
-  output(newhead);
+  for (auto &l : lists) {
+    ListNode *head = list_from_array(l);
+    print_list(head);
+    ListNode *newhead = sol.swapPairs(head);
+    print_list(newhead);
+  }
   return 0;
 }
