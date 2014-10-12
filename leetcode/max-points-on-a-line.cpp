@@ -14,6 +14,52 @@ bool operator == (const Point &lhs, const Point & rhs) {
   return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 
+bool operator < (const Point &a, const Point &b) {
+  if (a.x == b.x) {
+    return a.y < b.y;
+  } else {
+    return a.x < b.x;
+  }
+}
+
+class SolutionV2 {
+public:
+  int maxPoints(vector<Point> &points) {
+    int n = points.size();
+
+    if (n <= 1) return n;
+
+    sort(points.begin(), points.end());
+    int nmax = 0;
+    for (int i = 0; i < n-1; ++i) {
+      unordered_map<double, int> slope;
+      int dups = 1;
+      for (int j = i+1; j < n; ++j) {
+        if (points[i] == points[j]) {
+          ++dups;
+          continue;
+        }
+
+        double s = 0.0;
+        if (points[i].x - points[j].x == 0) {
+          s = numeric_limits<double>::max();
+        } else {
+          s = 1.0 * (points[i].y - points[j].y) / (points[i].x - points[j].x);
+        }
+        ++slope[s];
+        if (slope[s] + dups > nmax) {
+          nmax = slope[s] + dups;
+        }
+      }
+      // in case all the input are the same points
+      if (nmax == 0) {
+        nmax = dups;
+      }
+    }
+    return nmax;
+  }
+};
+
 class Solution {
 public:
   int maxPoints(vector<Point> &points) {
