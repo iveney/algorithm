@@ -234,6 +234,10 @@ ListNode *list_from_array(int* arr, int n) {
   return head;
 }
 
+ListNode *list_from_array(vector<int> v) {
+  return list_from_array(v.data(), v.size());
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Undirected graph
 struct UndirectedGraphNode {
@@ -283,6 +287,8 @@ UndirectedGraphNode *deserialize_graph(const string &str) {
 }
 
 void serialize_graph(ostream& os, UndirectedGraphNode *node) {
+  if (node == NULL) return;
+  
   std::queue<UndirectedGraphNode *> myqueue;
   std::unordered_set<int> visited;
   myqueue.push(node);
