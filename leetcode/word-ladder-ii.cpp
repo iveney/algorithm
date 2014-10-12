@@ -2,13 +2,7 @@
 
 class Solution {
 public:
-  struct Item {
-    Item(const string &w, Item *p, int l) : word(w), parent(p), len(l) {}
-
-    string word;
-    Item *parent;
-    int len;
-  };
+  typedef unordered_map<string, list<string> > Graph;
 
   bool isNbr(const string &a, const string &b) const {
     int count = 0;
@@ -21,12 +15,18 @@ public:
     return count == 1;
   }
 
-  void backtrack(vector<string> &path, Item *item) {
-    Item *p = item;
-    while (p != NULL) {
-      path.push_back(p->word);
-      p = p->parent;
+  // dfs to backtrack
+  void backtrack(const string &start,
+                 const string &word) {
+    partial_path.push_front(word);
+    if (word == start) {
+      result.push_back(vector<string>(partial_path.begin(), partial_path.end()));
+    } else {
+      for (auto &pred : graph[word]) {
+        backtrack(start, pred);
+      }
     }
+    partial_path.pop_front();
   }
 
   // generate a set of neighbors
@@ -46,58 +46,61 @@ public:
     return next;
   }
 
-  vector<vector<string> > findLadders(string start, string end, unordered_set<string> &dict) {
-    vector<vector<string> > result;
-    queue<Item *> q;
-    q.push(new Item(start, NULL, 1));
+  vector<vector<string> > findLadders(
+    string start, string end, unordered_set<string> &dict) {
 
-    int shortest = -1, len = 0;
-    Item *last_item = NULL;
-    string word, pred;
     unordered_set<string> visited;
-    while (!q.empty()) {
-      Item *item = q.front();
-      q.pop();
+    queue<pair<string, int> > q;
+    q.push(make_pair(start, 1));
+    dict.erase(start);
+    dict.erase(end);
 
-      int dist = item->len + 1;
-      if (isNbr(item->word, end)) {
+    int shortest = -1, len = 0, currLevel = 1;
+    string word;
+    while (!q.empty()) {
+      tie(word, len) = q.front();
+      q.pop();
+      int dist = len + 1;
+
+      if (isNbr(word, end)) {
         if (shortest == -1 || shortest == dist) {
+          // found a new path
           shortest = dist;
-          result.push_back(vector<string> {end});
-          backtrack(result.back(), item);
-          reverse(result.back().begin(), result.back().end());
+          graph[end].push_back(word);
         } else {
           break;
         }
       }
 
       // clear the visited nodes if we reached a different level
-      if (last_item != NULL && last_item->len != item->len) {
+      if (currLevel != len) {
+        currLevel = len;
         for (const string &s : visited) {
           dict.erase(s);
         }
         visited.clear();
       }
-      last_item = item;
 
-      string replace = item->word;
-      for (int i = 0; i < replace.size(); ++i) {
-        char old = replace[i];
-        for (char c = 'a'; c <= 'z'; ++c) {
-          replace[i] = c;
-          if (c != old && dict.find(replace) != dict.end()) {
-            // next.push_back(replace);
-            // cout << replace << "->" << item->word << " dist = " << dist << "\n";
-            q.push(new Item(replace, item, dist));
-            visited.insert(replace);
-          }
+      // find the neighbors and insert
+      for (string &nbr : getNextLadders(word, dict)) {
+        graph[nbr].push_back(word);
+        if (visited.find(nbr) == visited.end()) {
+          // each item can only be in the queue once
+          q.push(make_pair(nbr, dist));
+          visited.insert(nbr);
         }
-        replace[i] = old;
       }
     } // while
 
+    backtrack(start, end);
+
     return result;
   }
+
+private:
+  Graph graph; // adjacency graph
+  list<string> partial_path;
+  vector<vector<string> > result;
 };
 
 int main() {
