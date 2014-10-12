@@ -9,13 +9,12 @@ public:;
       // twos: appeared exactly twice
       // threes: appeared exactly three times
       int ones = 0, twos = 0, threes = 0;
-      for (int i = 0; i < n; ++i)
-      {
+      for (int i = 0; i < n; ++i) {
+        int tmp = twos;
         threes = twos & A[i];
-        twos |= ones & A[i]; // appeared 2 or 3 times
-        ones ^= A[i];        // appeared exactly once
-        ones &= ~threes;
-        twos &= ~threes;
+        twos |= ones & A[i];          // ones & A[i]: increment to two
+        twos &= ~threes;              // remove threes
+        ones = (ones ^ A[i]) & ~tmp;
       }
       return ones;
     }
