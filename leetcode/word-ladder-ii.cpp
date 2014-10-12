@@ -5,23 +5,47 @@
 // - precompute the word distance
 // - A*
 // - after we know the shortest, cut the excess branch
+
+struct Item {
+  Item(const string &w, Item *p, int l, int d) : word(w), parent(p), len(l), dist(d) {}
+
+  string word;
+  Item *parent;
+  int len;  // current length
+  int dist; // dist to end
+};
+
+namespace std{
+template <>
+class less<Item *> {
+public:
+  bool operator () (const Item *a, const Item *b) {
+    return (a->len + a->dist) > (b->len + b->dist);
+  }
+};
+};
+
 class Solution {
 public:
-  struct Item {
-    Item(const string &w, Item *p, int l) : word(w), parent(p), len(l) {}
-
-    string word;
-    Item *parent;
-    int len;
-  };
-
-  bool isNbr(const string &a, const string &b) const {
+  int word_dist(const string &a, const string &b) {
     int count = 0;
     for (int i = 0; i < a.size(); ++i) {
       if (a[i] != b[i]) {
         ++count;
       }
-      if (count > 1) return false;
+    }
+    return count;
+  }
+
+  bool isNbr(const string &a, const string &b) {
+    int count = 0;
+    for (int i = 0; i < a.size(); ++i) {
+      if (a[i] != b[i]) {
+        ++count;
+      }
+      if (count > 1) {
+        return false;
+      }
     }
     return count == 1;
   }
@@ -36,17 +60,17 @@ public:
 
   vector<vector<string> > findLadders(string start, string end, unordered_set<string> &dict) {
     vector<vector<string> > result;
-    queue<Item *> q;
-    q.push(new Item(start, NULL, 1));
+    priority_queue<Item *> q;
+    q.push(new Item(start, NULL, 1, word_dist(start, end)));
 
     int shortest = -1, len = 0;
     string word, pred;
     while (!q.empty()) {
-      Item *item = q.front();
+      Item *item = q.top();
       q.pop();
       dict.erase(item->word);
+      int dist = item->len + 1;
       if (isNbr(item->word, end)) {
-        int dist = item->len + 1;
         if (shortest == -1 || shortest == dist) {
           shortest = dist;
           result.push_back(vector<string> {end});
@@ -60,7 +84,7 @@ public:
       auto it = dict.begin();
       while (it != dict.end()) {
         if (isNbr(*it, item->word)) {
-          q.push(new Item(*it, item, item->len + 1));
+          q.push(new Item(*it, item, dist, word_dist(*it, end)));
         }
         ++it;
       }
@@ -87,6 +111,15 @@ int main() {
       ostream_iterator<decltype(path)::value_type>(cout, " "));
     cout << "\n";
   }
-  
+
+  // priority_queue<Item *> q;
+  // q.push(new Item("c", NULL, 4));
+  // q.push(new Item("b", NULL, 5));
+  // q.push(new Item("a", NULL, 10));
+  // while(!q.empty()) {
+  //   cout << q.top()->word << "\n";
+  //   q.pop();
+  // }
+
   return 0;
 }
