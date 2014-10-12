@@ -1,6 +1,58 @@
 #include "leetcode.h"
 #include "array2D.hpp"
 
+class SolutionV2 {
+public:
+  bool search(const vector<vector<char> > &board, int i, int j, const char *word) {
+    int m = board.size();
+    int n = board[0].size();
+
+    if (board[i][j] == *word) {
+      if (*(word+1) == 0) {
+        return true;
+      }
+      visited[i][j] = true;
+      if (i-1 >= 0 && !visited[i-1][j] && search(board, i-1, j, word+1)) {
+        return true;
+      }
+      if (i+1 < m && !visited[i+1][j] && search(board, i+1, j, word+1)) {
+        return true;
+      }
+      if (j-1 >= 0 && !visited[i][j-1] && search(board, i, j-1, word+1)) {
+        return true;
+      }
+      if (j+1 < n && !visited[i][j+1] && search(board, i, j+1, word+1)) {
+        return true;
+      }
+      visited[i][j] = false;
+    }
+
+    return false;
+  }
+
+  bool exist(vector<vector<char> > &board, string word) {
+    if (word.size() == 0) return true;
+
+    int m = board.size();
+    if (m == 0) return false;
+    int n = board[0].size();
+    visited.assign(m, vector<bool>(n, false));
+
+    for (int i = 0; i < m; ++i) {
+      for (int j = 0; j < n; ++j) {
+        if (search(board, i, j, word.c_str())) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  vector<vector<bool> > visited;
+};
+
+
 class Solution {
 public:
   // neighbors: up, down, left, right
