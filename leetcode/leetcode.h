@@ -319,12 +319,14 @@ void serialize_graph(ostream& os, UndirectedGraphNode *node) {
 void dump_tree_graphviz_recursive(TreeNode* root) {
   if (root == NULL) return;
 
+  cout << (long) root << "[label=\"" << root->val << "\"]\n";
+
   if (root->left) {
-    cout << root->val << " -> " << root->left->val << ";\n";
+    cout << (long) root << " -> " << (long) root->left << ";\n";
   }
 
   if (root->right) {
-    cout << root->val << " -> " << root->right->val << ";\n";
+    cout << (long) root << " -> " << (long) root->right << ";\n";
   }
 }
 
