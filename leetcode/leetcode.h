@@ -321,17 +321,29 @@ void dump_tree_graphviz_recursive(TreeNode* root) {
 
   cout << (long) root << "[label=\"" << root->val << "\"]\n";
 
-  if (root->left) {
-    cout << (long) root << " -> " << (long) root->left << ";\n";
+  string left, right;
+  if (!root->left) {
+    left = "l" + to_string((long)root);
+    cout << left << " [label=\"\", style=invis]\n";
+    cout << (long) root << " -> " << left << "[style = invis];\n";
+  } else {
+    left = to_string((long)root->left);
+    cout << (long) root << " -> " << left << ";\n";
   }
 
-  if (root->right) {
-    cout << (long) root << " -> " << (long) root->right << ";\n";
+  if (!root->right) {
+    right = "r" + to_string((long)root);
+    cout << right << " [label=\"\", style=invis]\n";
+    cout << (long) root << " -> " << right << "[style = invis];\n";
+  } else {
+    right = to_string((long)root->right);
+    cout << (long) root << " -> " << right << ";\n";
   }
 }
 
 void dump_tree_graphviz(const string &name, TreeNode* root) {
   cout << "digraph " << name << " {\n";
+  cout << "graph [ordering=\"out\"];\n";
   preorder(root, dump_tree_graphviz_recursive);
   cout << "}\n";
 }
