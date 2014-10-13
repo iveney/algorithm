@@ -28,6 +28,14 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+ostream & operator << (ostream &os, TreeNode *node) {
+  if (node == NULL)
+    os << "#";
+  else
+    os << node->val;
+  return os;
+}
+
 // struct TreeLinkNode {
 //   int val;
 //   TreeLinkNode *left, *right, *next;
