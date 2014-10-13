@@ -93,22 +93,19 @@ public:
 
 int main(int argc, char const *argv[])
 {
-  TreeNode *root = deserialize_tree(string("1 2 3 # # 4 # # 2 4 # # 3 # #"));
+  vector<string> trees = {
+    "1 2 3 # # 4 # # 2 4 # # 3 # #",
+    "1 2 # 3 # # 2 # 3 # #",
+    "2 3 4 # # 5 8 # # 9 # # 3 5 9 # # 8 # # 4 # #",
+  };
+  for (auto tree : trees) {
+    TreeNode *root = deserialize_tree(tree);
+    Solution sol;
+    SolutionIterative soli;
+    cout << sol.isSymmetric(root) << '\n';
+    cout << soli.isSymmetric(root) << '\n';
+  }
   // level_order_cout(root);
-
-  Solution sol;
-  SolutionIterative soli;
-
-  cout << sol.isSymmetric(root) << '\n';
-  cout << soli.isSymmetric(root) << '\n';
-
-  // root = deserialize_tree(string("1 2 # 3 # # 2 # 3 # #"));
-  // cout << sol.isSymmetric(root) << '\n';
-  // cout << soli.isSymmetric(root) << '\n';
-
-  root = deserialize_tree(string("2 3 4 # # 5 8 # # 9 # # 3 5 9 # # 8 # # 4 # #"));
-  cout << sol.isSymmetric(root) << '\n';
-  cout << soli.isSymmetric(root) << '\n';
 
   return 0;
 }
