@@ -214,6 +214,47 @@ TreeNode *deserialize_tree(const string& serialize_str) {
   return root;
 }
 
+bool next_token(istream& is, TreeNode *&node) {
+  string token;
+  if ( !(is >> token) )
+    return false;
+
+  // sentinel
+  if (token == "#") {
+    node = NULL;
+  } else {
+    node = new TreeNode(stoi(token));
+  }
+
+  return true;
+}
+
+TreeNode *deserialize_tree_level(const string& serialize_str) {
+  istringstream ss(serialize_str);
+  TreeNode *root = NULL, *curr = NULL, *node = NULL;
+  queue<TreeNode *> q;
+  string token;
+
+  while (next_token(ss, node)) {
+    if (root == NULL) {
+      root = node;
+      q.push(node);
+      continue;
+    }
+    if (q.empty()) {
+      break;
+    }
+    curr = q.front();
+    q.pop();
+    curr->left = node;
+    if (node) q.push(node);
+    next_token(ss, node);
+    curr->right = node;
+    if (node) q.push(node);
+  }
+  return root;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // linked list related
 
