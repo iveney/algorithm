@@ -1,11 +1,52 @@
-#include <iostream>
-using namespace std;
+#include "leetcode.h"
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+// Implement iteratively
+// idea is to maintain two queues for current level, check if they are reversely the same
+// also fill the next level queues when comparing.
+class SolutionIterative {
+public:
+  bool isSymmetric(TreeNode *root) {
+    if (root == NULL) return true;
+
+    curL = &L[0];
+    curR = &R[0];
+    nxtL = &L[1];
+    nxtR = &R[1];
+    curL->push_back(root->left);
+    curR->push_back(root->right);
+    while (!curL->empty() && !curR->empty()) {
+      TreeNode *l = curL->front();
+      curL->pop_front();
+      TreeNode *r = curR->back();
+      curR->pop_back();
+
+      if (l == NULL && r == NULL) {
+        // fine
+      } else if (l == NULL || r == NULL) {
+        // one of them is not NULL
+        return false;
+      } else if (l->val != r->val) {
+        return false;
+      } else {
+        nxtL->push_back(l->left);
+        nxtL->push_back(l->right);
+        nxtR->push_front(r->right);
+        nxtR->push_front(r->left);
+      }
+
+      if (curL->empty() && curR->empty()) {
+        // finish current level, swap pointers for the next level  
+        swap(curL, nxtL);
+        swap(curR, nxtR);
+      } else if (curL->empty() || curR->empty()) {
+        // uneven number at the current levels
+        return false;
+      }
+    } // while
+    return true;
+  }
+
+  list<TreeNode *> L[2], R[2], *curL, *curR, *nxtL, *nxtR; // rotate them
 };
 
 // more compact
@@ -52,29 +93,22 @@ public:
 
 int main(int argc, char const *argv[])
 {
-  TreeNode nodes[] = {
-    TreeNode(1), // 0
-    TreeNode(2), TreeNode(2),  // 1, 2
-    TreeNode(3), TreeNode(3),  // 3, 4
-    TreeNode(4), TreeNode(4),  // 5, 6
-  };
-  nodes[0].left = &nodes[1];
-  nodes[0].right = &nodes[2];
-  nodes[1].left = &nodes[3];
-  nodes[1].right = &nodes[5];
-  nodes[2].left = &nodes[6];
-  nodes[2].right = &nodes[4];
+  TreeNode *root = deserialize_tree(string("1 2 3 # # 4 # # 2 4 # # 3 # #"));
+  // level_order_cout(root);
 
   Solution sol;
-  TreeNode *root = &nodes[0];
-  bool result = sol.isSymmetric(root);
-  cout << result << endl;
+  SolutionIterative soli;
 
-  nodes[1].left = NULL;
-  nodes[1].right = &nodes[3];
-  nodes[2].left = NULL;
-  nodes[2].right = &nodes[4];
-  result = sol.isSymmetric(root);
-  cout << result << endl;
+  cout << sol.isSymmetric(root) << '\n';
+  cout << soli.isSymmetric(root) << '\n';
+
+  // root = deserialize_tree(string("1 2 # 3 # # 2 # 3 # #"));
+  // cout << sol.isSymmetric(root) << '\n';
+  // cout << soli.isSymmetric(root) << '\n';
+
+  root = deserialize_tree(string("2 3 4 # # 5 8 # # 9 # # 3 5 9 # # 8 # # 4 # #"));
+  cout << sol.isSymmetric(root) << '\n';
+  cout << soli.isSymmetric(root) << '\n';
+
   return 0;
 }
