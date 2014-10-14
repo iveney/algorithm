@@ -32,18 +32,13 @@ public:
 
 int main() {
   Solution sol;
-  ListNode nodes[] = {
-    10, 9, 8, 7, 6, 5,
-    // 6, 5, 9, 4, 2, 10
-  };
-  int n = sizeof(nodes) / sizeof(ListNode);
-  for (int i = 0; i < n-1; ++i)
-    nodes[i].next = &nodes[i+1];
-
-  ListNode *head = &nodes[0];
+  // vector<int> l = {10, 10, 10, 9, 8, 7};
+  // vector<int> l = {10};
+  vector<int> l = {3, 9, 2, 1, 0, 10, 7};
+  ListNode *head = list_from_array(l);
   print_list(head);
-  head = sol.insertionSortList(head);
-  print_list(head);
+  ListNode *newhead = sol.insertionSortList(head);
+  print_list(newhead);
 
   return 0;
 }
