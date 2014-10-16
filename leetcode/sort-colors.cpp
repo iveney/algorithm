@@ -24,6 +24,20 @@ public:
       }
     }
 
+    // three pointers to the end of 0, 1, 2
+    // when we encounter a number x, incement the pointers >= x
+    // just like inserting one more element x into the range
+
+    // e.g., the next element is 0:
+    //idx : 0 1 2 3 4 5 6  7  8
+    //      0 0 1 1 1 2 2 [0] 1
+    //        i     j   k
+    // increment i and insert 0, since there is one more element inserted
+    // before the 1s, 1 also need to be incremented, similar, 2 need to be 
+    // incremented, it becomes:
+    //idx : 0 1 2 3 4 5 6 7  8
+    //      0 0 0 1 1 1 2 2 [1]
+    //          i     j   k
     void one_pass(int A[], int n) {
       int i, j, k;
       i = j = k = -1;
