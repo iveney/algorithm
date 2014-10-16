@@ -11,7 +11,7 @@ public:
     vector<bool> bs(n + 1);
     bs[0] = true;
     for (int i = 0; i < n; ++i) {
-      // the previous cannot be broken, no need to start from this position
+      // cannot break from the previous, no need to start from this position
       if (!bs[i])
         continue;
       for (auto &word : dict) {
@@ -38,10 +38,11 @@ int main() {
     "feet",
     "leevis",
     "teef",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab",
+    "",
   };
-  unordered_set<string> dict = {"leet", "code", "feet", "cdma", "lee", "vis"};
-  // unordered_set<string> dict = {"a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"};
+  // unordered_set<string> dict = {"leet", "code", "feet", "cdma", "lee", "vis"};
+  unordered_set<string> dict = {"a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"};
   for (auto str : s) {
     printf("%s : %d\n", str.c_str(), sol.wordBreak(str, dict));
   }
