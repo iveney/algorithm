@@ -1,3 +1,9 @@
+// Another solution is:
+// 1. find the middle point of the list (two pointers, one go 2x, one go 1x)
+// 2. reverse the last half of the list
+// 3. merge two list
+// Time complexity will still be O(n), two passes, code is more complicated though.
+
 #include <stack>
 #include "leetcode.h"
 
