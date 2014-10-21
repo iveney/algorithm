@@ -1,0 +1,6 @@
+Same as
+
+https://oj.leetcode.com/problems/reorder-list/
+
+I managed to code a find middle, reverse and merge version.
+Later I came up the stack solution, but no time to rewrite it.

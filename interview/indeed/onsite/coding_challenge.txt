@@ -1,0 +1,27 @@
+Given a log file, which contains some url strings for site visits:
+
+...&ctk=abcdefg&ts=123456778&type=search&...
+
+Basically, it has three components:
+
+1. ctk: a key to identify the cookie
+2. ts: timestamp
+3. type: search of click
+
+The problem asks to write a program to process a log file that contains multiple queries and output session info. A session is defined as:
+
+A series of events (click or search) that has the same ctk with no time gaps > 15 mins.
+
+The log file is ordered by timestamp.
+
+Solution:
+
+Maintain a hashmap to keep track of the session data and last timestamp of the session,
+whenever a new event has time gap > 15mins of this session, we output the session and reset it.
+
+The problem is that they limit the memory so the above solution will run out of memory.
+I changed to map and passed the largest test, however the map has log(n) runtime.
+
+The optimal solution should be flush out the content of the hashmap periodically, since some session
+might have already expired (> 15mins) but the above procedure requires a new event with the same ctk
+to kick it out of hashmap.
