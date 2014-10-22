@@ -7,6 +7,37 @@
 //    reverse A[i+1 .. n]
 #include "leetcode.h"
 
+class SolutionV2 {
+public:
+  void nextPermutation(vector<int> &num) {
+    int n = num.size();
+    if (n <= 1) return;
+
+    // search for the reversely sorted subarray, i is the first elem breaks this
+    int i = n - 2;
+    while (i >= 0 && num[i] >= num[i+1]) {
+      --i;
+    }
+
+    // special case: whole sequence is reversely sorted, return to initial
+    if (i < 0) {
+      reverse(num.begin(), num.end());
+      return; 
+    }
+
+    // find first elem in the reversely-sorted array that is larger than num[i] to swap
+    int j = n - 1;
+    while (num[j] <= num[i]) {
+      --j;
+    }
+
+    swap(num[i], num[j]);
+
+    // reverse the reversely sorted array
+    reverse(num.begin() + i + 1, num.end());
+  }
+};
+
 class Solution {
 public:
   void nextPermutation(vector<int> &num) {
@@ -54,7 +85,8 @@ public:
 };
 
 int main() {
-  vector<int> num = {1,2,3,4}; 
+  // vector<int> num = {1,2,3,4}; 
+  vector<int> num = {1,2,1,5,4,3,3,2,1}; 
   Solution sol;
   int np = 24;
   for (int i = 0; i < np; ++i) {
