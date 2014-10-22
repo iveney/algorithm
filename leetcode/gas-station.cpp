@@ -1,5 +1,11 @@
 // very tricky problem, the following has a very clear code
 // http://oj.leetcode.com/discuss/1722/spoiler-alert-java-gas-station-solution-what-you-guys-think
+//
+// Two observations:
+// 1. if sum(gas) >= sum(cost), there must be a solution (proof)?
+// 2. if we travel from A to B and gas becomes negative, starting from any station between them will fail too.
+//    this gives us a linear time solution, we can visit it only one pass to examine all the possibilities of starting point.
+
 #include "leetcode.h"
 
 class Solution {
