@@ -1,6 +1,31 @@
 // interesting question. practice again
 #include "leetcode.h"
 
+class SolutionV2 {
+public:
+  int total;
+  int sumNumbers(TreeNode *root) {
+    total = 0;
+    sumRecursive(root, 0);
+    return total;
+  }
+
+  void sumRecursive(TreeNode *root, int carry) {
+    if (root == NULL) {
+      return;
+    }
+
+    int sum = carry * 10 + root->val;
+    if (root->left == NULL && root->right == NULL) {
+      total += sum;
+      return;
+    }
+
+    sumRecursive(root->left, sum);
+    sumRecursive(root->right, sum);
+  }
+};
+
 class Solution {
 public:
     int sumNumbers(TreeNode *root) {
@@ -26,6 +51,7 @@ int main(int argc, char const *argv[])
   // string serialized_tree("3 9 # # 2 1 # 8 4 # # # 7 # #");
   // string serialized_tree("1 2 # # 3 # #");
   // string serialized_tree("0 1 # # 2 # #");
+  // string serialized_tree("1 2 4 # # 5 # # 3 # # ");
   string serialized_tree("1 2 3 # # #");
   TreeNode *root = deserialize_tree(serialized_tree);
   Solution sol;
