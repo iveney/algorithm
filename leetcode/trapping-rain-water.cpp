@@ -1,5 +1,21 @@
 // interesting question. Failed to think about a solution
 // Need to practice again
+
+// The trick is to compute the water trapped for a single i independently, but not a "ridge" as a whole
+// If we know the highest left and right boundary, we know the water trapped at i
+// e.g., 
+
+// 0 1 2 3 4 5 6
+// 5 6 4 2 5 7 2
+
+// for i=3, we can see that left highest is 6, right highest is 7,
+// then the water at this point is min(6, 7) - A[3] = 6 - 2 = 4
+
+// to do the above, we first find the l[i], which is the left highest between 0 .. i-1, 
+// then we also find r[i], which is the right highest between i+1 .. n-1, note that both of them do not include i itself
+// so the water trapped at i is min(l[i], r[i]) - A[i] (if > 0)
+// Note that it is not necessary to keep r[i] since we only need information up to i, so we eliminate r[i] but use a single number to keep the right highest
+
 #include <cstdio>
 #include "leetcode.h"
 
