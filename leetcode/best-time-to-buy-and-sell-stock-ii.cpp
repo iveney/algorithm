@@ -2,6 +2,9 @@
 #include <iostream>
 using namespace std;
 
+// the basic idea is to find all the increasing segments (which means we can profit by
+// by low sell high) and sum the difference up as the total profit.
+// This can be done in linear time in one pass
 class Solution {
 public:
     int maxProfit(vector<int> &prices) {
