@@ -2,6 +2,63 @@
 // should use a mergesort for cleaner code
 #include "leetcode.h"
 
+class SolutionMergeSort {
+public:
+  ListNode * sortList(ListNode *head) {
+    if (head == nullptr || head->next == nullptr) return head;
+
+    ListNode *p = head, *q = head, *r = nullptr;
+    while (q != nullptr) {
+      q = q->next;
+      if (q == nullptr) {
+        break;
+      }
+      r = p;
+      q = q->next;
+      p = p->next;
+    }
+
+    r->next = nullptr;
+    ListNode *left = sortList(head);
+    ListNode *right = sortList(p);
+    return mergeList(left, right);
+  }
+
+  ListNode *mergeList(ListNode *a, ListNode *b) {
+    if (a == nullptr) return b;
+    if (b == nullptr) return a;
+
+    ListNode *head = nullptr, *tail = nullptr;
+    while (a != nullptr && b != nullptr) {
+      if (a->val <= b->val) {
+        if (head == nullptr) {
+          head = tail = a;
+        } else {
+          tail->next = a;
+          tail = tail->next;
+        }
+        a = a->next;
+      } else {
+        if (head == nullptr) {
+          head = tail = b;
+        } else {
+          tail->next = b;
+          tail = tail->next;
+        }
+        b = b->next;
+      }
+    }
+
+    // remaining
+    if (a != nullptr) {
+      tail->next = a;
+    } else if (b != nullptr) {
+      tail->next = b;
+    }
+    return head;
+  }
+};
+
 class SolutionV2 {
 public:
   ListNode * sortList(ListNode *head) {
