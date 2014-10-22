@@ -33,23 +33,13 @@ public:
 
 int main(int argc, char const *argv[])
 {
-  const int n = 5;
-  ListNode nodes[n];
-  for (int i = 0; i < n - 1; ++i) {
-    nodes[i].val = i+1;
-    nodes[i].next = &nodes[i+1];
-  }
-  nodes[n-1].val = n;
-  ListNode *head = &nodes[0];
-  print_list(head);
-
   Solution sol;
-  ListNode *nhead = sol.removeNthFromEnd(head, 5);
-  print_list(nhead);
-
-  nhead = &nodes[n-1];
-  print_list(nhead);
-  nhead = sol.removeNthFromEnd(nhead, 1);
-  print_list(nhead);
+  int a[] = {1,2,3,4,5};
+  int n = sizeof(a) / sizeof(int);
+  for (int i = 1; i <= n; ++i) {
+    ListNode *head = list_from_array(a, n);
+    head = sol.removeNthFromEnd(head, i);
+    print_list(head);
+  }
   return 0;
 }
