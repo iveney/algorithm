@@ -40,6 +40,7 @@ public:
       // printf("%d : %d + %d\n", i, lr[i-1], rl[i]);
       M = max(M, lr[i-1] + rl[i]);
     }
+    // special case: only one transaction
     M = max({M, lr[n-1], rl[0]});
     return M;
   }
