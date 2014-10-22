@@ -3,8 +3,8 @@
 #include <cmath>
 using namespace std;
 
-// use a greedy solution
-
+// the idea is to maintain a lowest point and compute the profit we can earn 
+// at price[i], where i is greater than the current low point. Update the max accrodingly
 class Solution {
 public:
     int maxProfit(vector<int> &prices) {
