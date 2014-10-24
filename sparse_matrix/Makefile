@@ -1,5 +1,5 @@
 CC=clang++
-CPP=CSCMatrix.cpp CSRMatrix.cpp test_matrix.cpp sparse_matrix.cpp
+CPP=CSCMatrix.cpp CSRMatrix.cpp test_matrix.cpp sparse_matrix.cpp COOMatrix.cpp
 OBJ=$(CPP:.cpp=.o)
 CXXFLAGS=-std=c++11
 

@@ -4,6 +4,7 @@ using namespace std;
 #include "sparse_matrix.h"
 #include "CSCMatrix.h"
 #include "CSRMatrix.h"
+#include "COOMatrix.h"
 
 void test_dense2csr(const vector<vector<double>> &mat) {
   CSRMatrix s(mat);
@@ -25,7 +26,15 @@ void test_dense2csr(const vector<vector<double>> &mat) {
 void test_dense2csc(const vector<vector<double>> &mat) {
   CSCMatrix s(mat);
 
-  cout << s << "\n";
+  cout << s.dense() << "\n";
+}
+
+void test_coo(const vector<vector<double>> &mat) {
+  COOMatrix s(mat);
+  COOMatrix t = s.transpose();
+  cout << s.dense() << "\n";
+  cout << t.dense() << "\n";
+  cout << (s * t).dense() << "\n";
 }
 
 int main(int argc, char const *argv[])
@@ -41,5 +50,6 @@ int main(int argc, char const *argv[])
 
   test_dense2csr(mat);
   // test_dense2csc(mat);
+  test_coo(mat);
   return 0;
 }
