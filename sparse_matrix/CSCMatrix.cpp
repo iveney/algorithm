@@ -47,6 +47,7 @@ CSRMatrix operator * (const CSRMatrix &A, const CSCMatrix &B) {
           ++l;
         }
       } // while
+      if (FZERO(sum)) continue;
       C.val.push_back(sum);
       C.col_ind.push_back(j);
     } // j
