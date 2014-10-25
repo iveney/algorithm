@@ -1,6 +1,45 @@
 // one obvious opt is symmetry
 #include "leetcode.h"
 
+class Solution2 {
+public:
+  int count;
+  int N;
+  int totalNQueens(int n) {
+    N = n;
+    count = 0;
+    vector<vector<bool>> board(n, vector<bool>(n, false));
+    search(board, n);
+    return count;
+  }
+
+  bool valid(vector<vector<bool>> &board, int i, int j) {
+    for (int k = 1; k <= i; ++k) {
+      if (board[i-k][j] ||
+          (j-k >= 0 && board[i-k][j-k]) ||
+          (j+k < N && board[i-k][j+k]))
+        return false;
+    }
+    return true;
+  }
+
+  void search(vector<vector<bool>> &board, int n) {
+    if (n == 0) {
+      ++count;
+      return;
+    }
+
+    int level = N - n;
+    for (int j = 0; j < N; ++j) {
+      if (valid(board, level, j)) {
+        board[level][j] = true;
+        search(board, n - 1);
+        board[level][j] = false;
+      }
+    }
+  }
+};
+
 class Solution {
   vector<vector<string> > sol;
   vector<string> grid;
