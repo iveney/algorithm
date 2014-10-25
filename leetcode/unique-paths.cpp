@@ -1,6 +1,24 @@
 #include "leetcode.h"
 
 class Solution {
+public:
+  int uniquePaths(int m, int n) {
+    if (m <= 0 || n <= 0) return 0;
+    vector<vector<int>> D(m+1, vector<int>(n+1, 0));
+    for (int i = 1; i <= m; ++i) {
+      for (int j = 1; j <= n; ++j) {
+        if (i == 1 && j == 1) {
+          D[i][j] = 1;
+          continue;
+        } 
+        D[i][j] = D[i-1][j] + D[i][j-1];
+      }
+    }
+    return D[m][n];
+  }
+};
+
+class Solution {
 int array[105][105];
 public:
     int uniquePaths(int m, int n) {
