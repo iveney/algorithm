@@ -1,0 +1,2 @@
+1. find median of two sorted arrays
+2. find lines that go through most points.
