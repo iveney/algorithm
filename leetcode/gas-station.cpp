@@ -8,6 +8,31 @@
 
 #include "leetcode.h"
 
+class SolutionV2 {
+public:
+  int canCompleteCircuit(vector<int> &gas, vector<int> &cost) {
+    int n = gas.size();
+    if (n == 0) return -1;
+
+    int lapse = 0;
+    int cur = gas[0] - cost[0], start = 0;
+    int i = 0;
+    while (lapse < 2*n) {
+      i = (i+1) % n;
+      ++lapse;
+      if (cur < 0) {
+        cur = gas[i] - cost[i];
+        start = i;
+      } else if (start == i) {
+        return start;
+      } else {
+        cur = cur + gas[i] - cost[i];
+      }
+    }
+    return -1;
+  }
+};
+
 class Solution {
 public:
   int canCompleteCircuit(vector<int> &gas, vector<int> &cost) {
