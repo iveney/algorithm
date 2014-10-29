@@ -1,5 +1,41 @@
 #include "leetcode.h"
 
+class SolutionV2 {
+public:
+  vector<string> result;
+  void dfs(string &prefix, string &digits, int i) {
+    static const vector<string> letters = {
+      "",
+      "",
+      "abc",
+      "def",
+      "ghi",
+      "jkl",
+      "mno",
+      "pqrs",
+      "tuv",
+      "wxyz",
+    };
+    if (i == digits.size()) {
+      result.push_back(prefix);
+      return;
+    }
+    int d = digits[i] - '0';
+    for (int j = 0; j < letters[d].size(); ++j) {
+      prefix.push_back(letters[d][j]);
+      dfs(prefix, digits, i + 1);
+      prefix.pop_back();
+    }
+  }
+
+  vector<string> letterCombinations(string digits) {
+    string prefix;
+    dfs(prefix, digits, 0);
+    return result;
+  }
+};
+
+
 class Solution {
   vector<string> map = {
     " ",    // 0
