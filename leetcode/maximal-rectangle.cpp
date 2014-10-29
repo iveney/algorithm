@@ -1,3 +1,4 @@
+// http://www.drdobbs.com/database/the-maximal-rectangle-problem/184410529
 #include "leetcode.h"
 #include "array2D.hpp"
 
