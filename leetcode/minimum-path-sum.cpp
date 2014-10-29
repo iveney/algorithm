@@ -1,5 +1,27 @@
 #include "leetcode.h"
 
+class SolutionV2 {
+public:
+  int minPathSum(vector<vector<int> > &grid) {
+    int m = grid.size();
+    if (m == 0) return 0;
+    int n = grid[0].size();
+    vector<int> pre(n, 0), cur(n, 0);
+    pre[0] = grid[0][0];
+    for (int j = 1; j < n; ++j) {
+      pre[j] = pre[j-1] + grid[0][j];
+    }
+    for (int i = 1; i < m; ++i) {
+      cur[0] = pre[0] + grid[i][0];
+      for (int j = 1; j < n; ++j) {
+        cur[j] = min(cur[j-1], pre[j]) + grid[i][j];
+      }
+      swap(cur, pre);
+    }
+    return pre[n-1];
+  }
+};
+
 class Solution {
 public:
     int minPathSum(vector<vector<int> > &grid) {
