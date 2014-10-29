@@ -1,0 +1,95 @@
+// Given a folder, find duplicates (files that have the same content)
+// Original, I use digest such as MD5, but that computes hash for every file, regardless its duplicate or note
+// 
+// how do you save time? Improve: group files that have the same size into buckets first, then only after that we hash the
+// files and detect duplicates
+//
+// further: what if there is symlinks? Use a hash set to record the files/folders we visited
+
+a = XXXX
+b = XXXX
+g = XXXX
+c
+  d = YYYY
+  e = ZZZZ
+  f = ZZZZ
+
+[[a,b,g], [c/e, c/f]]
+
+find_duplicates(folder name)
+
+struct folder {
+    folder(string n) : name(n) {
+        init_folder(name);
+    }
+    int get_size();
+    string name;
+    vector<string> children;            
+    FolderType type; // folder, file     4 bytes
+};
+
+
+unordered_map<int, vector<string>> size_map;
+unordered_map<string, vector<folder> > result;
+unordered_set<string> visited;
+
+// a b g c
+
+hash map content:
+str1: (XXXX): [a,b,g];
+str2: (YYYY): [c/d];
+str3: (ZZZZ): [c/e, c/f];
+
+(root)
+a = XXXX
+b = XXXX
+g = XXXX
+c
+  d = YYYY
+  e = ZZZZ
+  f = ZZZZ
+  k -> b
+h -> c
+
+
+visited = {root, a,b,g,c,d,e,f,}
+
+size_map = {{a,b,g,d,e,f}, {}}
+
+void find_duplicates_recursive(folder name) {
+    string realpath = get_realpath(name);
+    if (visited.find(realpath) != visited.end()) {
+        return;
+    }
+    visited.insert(realpath);
+    if (f.type == "folder") {
+        for (auto f: name.children) {
+            folder fd(f);
+            find_duplicates_recursive(fd);
+        }
+    } else {
+        int size = f.get_size();
+        size_map[size].push_back(f);   
+    }
+}
+
+vector<vector<folder> > find_duplicates(folder name) {
+    find_duplicates_recursive(name);
+    
+    for (auto it: size_map) {
+        if (it->second.size() > 1) {
+            for (auto f: it->second) {
+                string h = md5(f.name);
+                result[h].push_back(f);
+            }
+        }
+    }
+    
+    vector<vector<folder> > answer;
+    for (auto it: result) {
+        if (it->second.size() > 1) {
+            answer.push_back(it->second);
+        };
+    }
+    return answer;
+}
