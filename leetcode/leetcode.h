@@ -36,12 +36,6 @@ ostream & operator << (ostream &os, TreeNode *node) {
   return os;
 }
 
-// struct TreeLinkNode {
-//   int val;
-//   TreeLinkNode *left, *right, *next;
-//   TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {} 
-// };
-
 struct TreeLinkNode : public TreeNode {
   TreeLinkNode *left, *right, *next;
   TreeLinkNode(int x) : TreeNode(x), left(NULL), right(NULL), next(NULL) {} 
@@ -75,6 +69,30 @@ void printTreeLinkNode(TreeLinkNode *root) {
   printTreeLinkNode(root->left);
   printTreeLinkNode(root->right);
 }
+
+class TreeNodeWithParent {
+public:
+  TreeNodeWithParent(int x) :
+    val(x), left(nullptr), right(nullptr), parent(nullptr) {}
+
+  // construct from given TreeNode
+  static TreeNodeWithParent *fromTreeNode(TreeNode *root) {
+    if (root == nullptr) return nullptr;
+
+    TreeNodeWithParent *node = new TreeNodeWithParent(root->val);
+    node->left = TreeNodeWithParent::fromTreeNode(root->left);
+    node->right = TreeNodeWithParent::fromTreeNode(root->right);
+    if (node->left)
+      node->left->parent = node;
+    if (node->right)
+      node->right->parent = node;
+    node->parent = nullptr;
+    return node;
+  }
+
+  TreeNodeWithParent *parent, *left, *right;
+  int val;
+};
 
 void preorder(TreeNode *root, function<void(TreeNode*)> func) {
   if (root == NULL)
