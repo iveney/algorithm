@@ -1,6 +1,10 @@
 // http://leetcode.com/2011/07/lowest-common-ancestor-of-a-binary-tree-part-i.html
 #include "leetcode.h"
 
+// cases to consider:
+// 1. p or q == root: LCA is root
+// 2. p and q in different sides of root: LCA is root
+
 class Solution {
 public:
   int count = 0;
