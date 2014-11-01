@@ -57,11 +57,33 @@ vector<int> largest_in_window(vector<int> &array, int wsize) {
   return result;
 }
 
+vector<int> maxSlidingWindow(vector<int> &A, int w) {
+  int n = A.size();
+  vector<int> B(n - w + 1);
+  deque<int> Q;
+  for (int i = 0; i < w; i++) {
+    while (!Q.empty() && A[i] >= A[Q.back()])
+      Q.pop_back();
+    Q.push_back(i);
+  }
+  for (int i = w; i < n; i++) {
+    B[i-w] = A[Q.front()];
+    while (!Q.empty() && A[i] >= A[Q.back()])
+      Q.pop_back();
+    if (!Q.empty() && Q.front() <= i-w)
+      Q.pop_front();
+    Q.push_back(i);
+  }
+  B[n-w] = A[Q.front()];
+  return B;
+}
+
 int main(int argc, char const *argv[])
 {
   vector<int> array{6,5,10,3,6,2,2,1,1,1,7,3,4,};
   int wsize = 4;
-  auto result = largest_in_window(array, wsize);
+  auto result = maxSlidingWindow(array, wsize);
+  // auto result = largest_in_window(array, wsize);
   copy(result.begin(), result.end(), 
     ostream_iterator<decltype(result)::value_type>(cout, " "));
   cout << '\n';
