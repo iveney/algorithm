@@ -3,6 +3,32 @@
 #include "leetcode.h"
 #include "array2D.hpp"
 
+// treat as a sorted list and do linear search
+class SolutionLinear {
+public:
+  bool searchMatrix(vector<vector<int> > &matrix, int target) {
+    int m = matrix.size();
+    if (m == 0) return false;
+    int n = matrix[0].size();
+    if (n == 0) return false;
+
+    int b = 0, e = m * n - 1;
+    while (b <= e) {
+      int mid = (b + e) / 2;
+      int mi = mid / n;
+      int mj = mid % n;
+      if (matrix[mi][mj] == target) {
+        return true;
+      } else if (matrix[mi][mj] < target) {
+        b = mid + 1;
+      } else {
+        e = mid - 1;
+      }
+    }
+    return false;
+  }
+};
+
 class Solution {
 public:
     bool searchMatrix(vector<vector<int> > &matrix, int target) {
