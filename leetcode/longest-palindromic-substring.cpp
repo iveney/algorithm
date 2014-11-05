@@ -36,43 +36,31 @@ public:
 };
 
 // DP solution, O(n^2) space and time
-class Solution_DP {
+class Solution {
 public:
   string longestPalindrome(string s) {
-    if (s.size() <= 1) return s;
+    int n = s.length();
+    if (n <= 1) return s;
 
-    int n = s.size();
-    vector<vector<int> > len(n);
-    for (int i = 0; i < n; ++i)
-    {
-      len[i].resize(n);
-      len[i][i] = 1;
-    }
-
-    int maxlen = 1;
-    int b = 0, e = 0;
-    for (int d = 2; d <= n; ++d) {
-      for (int i = 0; i+d <=n ; ++i) {
-        int j = i+d-1;
-        if (s[i] != s[j])
-          len[i][j] = 0;
-        else {
-          if (i + 1 > j - 1)
-            len[i][j] = 2;
-          else if (len[i+1][j-1] != 0)
-            len[i][j] = len[i+1][j-1] + 2;
-          else
-            len[i][j] = 0;
+    bool ispal[1000][1000] = {false};
+    // vector<vector<bool>> ispal(n, vector<bool>(n, false));
+    int b=0, ml = 1;
+    for (int l = 1; l <= n; ++l) {
+      for (int i = 0; i <= n - l; ++i) {
+        int j = i + l - 1;
+        if (i == j) {
+          ispal[i][j] = true;
         }
-
-        if (len[i][j] > maxlen) {
-          maxlen = len[i][j];
-          b = i;
-          e = j;
+        if (s[i] == s[j] && (i+1 > j-1 || ispal[i+1][j-1])) {
+          ispal[i][j] = true;
+          if (l > ml) {
+            b = i;
+            ml = l;
+          }
         }
-      }
-    } // for
-    return s.substr(b, e-b+1);
+      } // j
+    } // i
+    return s.substr(b, ml);
   }
 };
 
