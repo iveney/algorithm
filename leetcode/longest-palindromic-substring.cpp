@@ -1,6 +1,10 @@
 #include "leetcode.h"
 
+// O(n) solution
+// http://leetcode.com/2011/11/longest-palindromic-substring-part-ii.html
 
+// Clever and easier than DP 
+// O(n^2) solution (2n-1 possible strings)
 class Solution {
   string expandFrom(string &s, int b, int e) {
     int n = s.size();
