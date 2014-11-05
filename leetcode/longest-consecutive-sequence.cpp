@@ -1,6 +1,38 @@
+// interesting question
 // can be more concise if we compute the range
+// https://oj.leetcode.com/discuss/6558/solution-of-mine-o-n-complexity-and-o-n-space-with-single-scan
 #include <unordered_map>
 #include "leetcode.h"
+
+
+class SolutionV2 {
+public:
+  int longestConsecutive(vector<int> &num) {
+    // unordered_map<int,int> left, right;
+    unordered_map<int,int> chain;
+    int mlen = 0;
+    for (auto n : num) {
+      int b = n, e = n;
+      if (chain.find(n) != chain.end()) {
+        continue;
+      }
+      if (chain.find(n + 1) != chain.end()) {
+        e = chain[n+1];
+      }
+      if (chain.find(n - 1) != chain.end()) {
+        b = chain[n-1];
+      }
+      mlen = max(mlen, e - b + 1);
+
+      // update begin and end of current
+      chain[n] = n;
+      chain[b] = e;
+      chain[e] = b;
+      // cout << n << " " << b << " " << e << "\n";
+    }
+    return mlen;
+  }
+};
 
 class Solution {
 public:
