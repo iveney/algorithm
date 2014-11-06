@@ -1,3 +1,4 @@
+// http://leetcode.com/2011/04/construct-binary-tree-from-inorder-and-preorder-postorder-traversal.html
 #include "leetcode.h"
 
 class Solution {
@@ -24,6 +25,36 @@ public:
     root->left = buildTree(inorder, b, i-1, postorder, p);
     return root;
   }
+};
+
+// Should be more clear to previous version
+class Solution {
+public:
+    unordered_map<int, int> inorder_map;
+    // n is the current size of postorder (unprocessed)
+    // in[ib .. ie) 
+    // post [pb .. pe)
+    TreeNode *buildTreeRecursive(vector<int> &inorder, vector<int> &postorder,
+      int ib, int ie, int pb, int pe) {
+
+      if (pb == pe) return nullptr;
+
+      int rootval = postorder[pe-1]; 
+      int pivot = inorder_map[rootval];
+      TreeNode *root = new TreeNode(rootval);
+      int lsize = pivot - ib;
+      root->left = buildTreeRecursive(inorder, postorder, ib, pivot, pb, pb + lsize);
+      root->right = buildTreeRecursive(inorder, postorder, pivot+1, ie, pb + lsize, pe - 1);
+      return root;
+    }
+
+    TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder) {
+      // build the lookup table for values in inorder
+      for (int i = 0; i < inorder.size(); ++i) {
+        inorder_map[inorder[i]] = i;
+      }
+      return buildTreeRecursive(inorder, postorder, 0, inorder.size(), 0, postorder.size());
+    }
 };
 
 int main() {
