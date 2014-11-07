@@ -1,3 +1,5 @@
+// http://leetcode.com/2010/11/stack-that-supports-push-pop-and-getmin.html
+// http://stackoverflow.com/questions/4802038/implement-a-queue-in-which-push-rear-pop-front-and-get-min-are-all-consta
 #include <cassert>
 #include <deque>
 #include <queue>
@@ -8,6 +10,7 @@ class MinQueue {
 public:
   void push(int x) {
     q.push(x);
+    // note that this is amortized O(1)
     while (!mins.empty() && mins.back() > x) {
       mins.pop_back();
     }
