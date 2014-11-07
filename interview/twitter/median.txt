@@ -1,0 +1,6 @@
+250 million users in twitter, each user has a certain followers.
+Find the median number.
+
+I think he's expecting sth. like this:
+
+http://www.quora.com/Whats-an-algorithm-for-finding-the-median-element-in-an-unsorted-array-in-linear-time-constant-space
